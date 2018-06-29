@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="20180505" author="cinling">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="system_monitor"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="system_monitor">
+            <column name="id" type="int unsigned" autoIncrement="true" remarks="">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="memory_total" type="int" remarks="内存总大小。单位：MB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_use" type="int" remarks="使用了多少内存。单位：MB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="disk_total" type="double" remarks="硬盘总大小。单位：GB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="disk_use" type="double" remarks="已使用了多少空间。单位：GB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="int unsigned" remarks="统计的时间戳">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

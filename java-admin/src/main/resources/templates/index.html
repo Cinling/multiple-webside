@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/css/menu.css')}" />
+    
+</head>
+<body>
+<div id="indexVue">
+    <!--菜单-->
+    <span v-html="menuHtml"></span>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/js/component/menu.js')}"></script>
+
+<script type="text/javascript">
+    let indexVue = new Vue({
+        el: "#indexVue",
+        data: {
+            menuHtml: ""
+        },
+        /**
+         * 对象创建后执行的方法
+         */
+        created: function() {
+            // 初始化菜单
+            Menu.GetMenuHtml(function(menuHtml) {
+                indexVue.menuHtml = menuHtml;
+            });
+        }
+    });
+</script>
+</body>
+</html>

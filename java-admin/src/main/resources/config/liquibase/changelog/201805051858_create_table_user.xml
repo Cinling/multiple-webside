@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="20180518_create_table_user" author="cinling">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="admin_user"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="admin_user">
+            <column name="id" type="int unsigned" autoIncrement="true" remarks="">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account" type="varbinary(32)" remarks="账号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varbinary(512)" remarks="密码（sha512加密后的字符串）">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nickname" type="varbinary(64)" remarks="称呼，昵称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="int unsigned" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="20180518_add_index_to_user" author="cinling">
+        <createIndex tableName="admin_user" indexName="index_account">
+            <column name="account" />
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

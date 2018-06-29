@@ -1,0 +1,38 @@
+a:hover {
+    cursor: pointer;
+}
+
+.srv-menu {
+
+}
+
+.srv-menu-group {
+    position: relative;
+}
+
+.srv-menu-items {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 300px;
+}
+
+.srv-menu-items-1 {
+    left: 0;
+}
+
+.srv-menu-items-2 {
+    left: 300px;
+}
+
+.srv-menu-items-3 {
+    left: 600px;
+}
+
+.srv-menu-items-4 {
+    left: 900px;
+}
+
+.srv-menu-items-5 {
+    left: 1200px;
+}
