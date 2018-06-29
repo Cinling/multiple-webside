@@ -6,5 +6,6 @@
 
     <include file="classpath:config/liquibase/changelog/201805051858_create_table_system_monitor.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/201805051858_create_table_user.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201806300000_rename_system_monitor.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

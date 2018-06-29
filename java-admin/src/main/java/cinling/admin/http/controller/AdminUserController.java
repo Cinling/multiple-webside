@@ -19,7 +19,7 @@ public class AdminUserController extends BaseController {
      * @return html页面
      */
     @GetMapping("home")
-    public String AdminManagement() {
+    public String AdminManagementPage() {
         return "admin-user/home";
     }
 

@@ -1,7 +1,7 @@
 package cinling.admin.database.entity;
 
-public class SystemMonitorEntity {
-    public SystemMonitorEntity() {
+public class AdminSystemMonitorEntity {
+    public AdminSystemMonitorEntity() {
 
     }
 

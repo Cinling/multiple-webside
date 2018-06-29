@@ -1,19 +1,19 @@
 package cinling.admin.schedule;
 
-import cinling.admin.database.entity.SystemMonitorEntity;
-import cinling.admin.database.service.system_monitor.SystemMonitorService;
+import cinling.admin.database.entity.AdminSystemMonitorEntity;
+import cinling.admin.database.service.admin_system_monitor.AdminSystemMonitorService;
+import com.sun.management.OperatingSystemMXBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;
-import com.sun.management.OperatingSystemMXBean;
 
 @Component
 public class SystemMonitorSchedule {
     @Autowired
-    SystemMonitorService systemMonitorService;
+    AdminSystemMonitorService systemMonitorService;
 
     /**
      * 监控系统资源使用的情况
@@ -35,7 +35,7 @@ public class SystemMonitorSchedule {
         }
         float diskUseGB = diskMaxGB - diskFreeGB;
 
-        SystemMonitorEntity systemMonitorEntity = new SystemMonitorEntity();
+        AdminSystemMonitorEntity systemMonitorEntity = new AdminSystemMonitorEntity();
         systemMonitorEntity.setMemoryTotal((int) memMaxMB);
         systemMonitorEntity.setMemoryUse((int) memUseMB);
         systemMonitorEntity.setDiskTotal(diskMaxGB);

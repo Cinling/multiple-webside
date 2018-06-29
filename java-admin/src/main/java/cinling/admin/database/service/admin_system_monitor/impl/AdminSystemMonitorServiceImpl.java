@@ -1,26 +1,26 @@
-package cinling.admin.database.service.system_monitor.impl;
+package cinling.admin.database.service.admin_system_monitor.impl;
 
-import cinling.admin.database.entity.SystemMonitorEntity;
-import cinling.admin.database.mapper.SystemMonitorMapper;
-import cinling.admin.database.service.system_monitor.SystemMonitorService;
+import cinling.admin.database.entity.AdminSystemMonitorEntity;
+import cinling.admin.database.mapper.AdminSystemMonitorMapper;
+import cinling.admin.database.service.admin_system_monitor.AdminSystemMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service("systemMonitorService")
-public class SystemMonitorServiceImpl implements SystemMonitorService {
+public class AdminSystemMonitorServiceImpl implements AdminSystemMonitorService {
     @Autowired
-    SystemMonitorMapper systemMonitorMapper;
+    AdminSystemMonitorMapper systemMonitorMapper;
 
     @Override
-    public List<SystemMonitorEntity> GetByPage(int page, int rows) {
+    public List<AdminSystemMonitorEntity> GetByPage(int page, int rows) {
         int skip = (page - 1) * rows;
         return systemMonitorMapper.SelectByLimit(skip, rows);
     }
 
     @Override
-    public void Add(SystemMonitorEntity systemMonitorEntity) {
+    public void Add(AdminSystemMonitorEntity systemMonitorEntity) {
         if (systemMonitorEntity.getTime() == null) {
             systemMonitorEntity.setTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
         }

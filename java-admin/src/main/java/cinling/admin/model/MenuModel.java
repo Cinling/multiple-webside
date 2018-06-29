@@ -39,7 +39,7 @@ public class MenuModel {
         this.menu.AddChild(system);
 
         // 系统 - 服务器状态
-        system.AddChild(new Menu("服务器状态", "/system-monitor/"));
+        system.AddChild(new Menu("服务器状态", "/admin-system-monitor/"));
     }
 
     /**

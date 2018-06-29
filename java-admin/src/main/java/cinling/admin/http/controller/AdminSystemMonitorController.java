@@ -1,7 +1,7 @@
 package cinling.admin.http.controller;
 
-import cinling.admin.database.entity.SystemMonitorEntity;
-import cinling.admin.database.service.system_monitor.SystemMonitorService;
+import cinling.admin.database.entity.AdminSystemMonitorEntity;
+import cinling.admin.database.service.admin_system_monitor.AdminSystemMonitorService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +15,15 @@ import java.util.List;
 /**
  * 系统监控的控制器
  */
-@RequestMapping("/system-monitor")
+@RequestMapping("/admin-system-monitor")
 @Controller
-public class SystemMonitorController extends BaseController {
+public class AdminSystemMonitorController extends BaseController {
     @Autowired
-    SystemMonitorService systemMonitorService;
+    AdminSystemMonitorService systemMonitorService;
 
     @RequestMapping("/")
     public String Home() {
-        return "system-monitor/home";
+        return "admin-system-monitor/home";
     }
 
     @RequestMapping("/home")
@@ -34,11 +34,11 @@ public class SystemMonitorController extends BaseController {
     @ResponseBody
     @PostMapping("/get-system-info")
     public String GetSystemInfo() {
-        List<SystemMonitorEntity> systemMonitorEntityList = systemMonitorService.GetByPage(1, 1440 * 7);
+        List<AdminSystemMonitorEntity> systemMonitorEntityList = systemMonitorService.GetByPage(1, 1440 * 7);
         JSONArray jsonArray = new JSONArray();
         int count = systemMonitorEntityList.size();
         for (int i = 0; i < count; ++i) {
-            SystemMonitorEntity systemMonitorEntity = systemMonitorEntityList.get(0);
+            AdminSystemMonitorEntity systemMonitorEntity = systemMonitorEntityList.get(0);
 
             JSONObject systemMonitorObject = new JSONObject();
             systemMonitorObject.put("mt", systemMonitorEntity.getMemoryTotal());
