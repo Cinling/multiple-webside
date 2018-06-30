@@ -7,17 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController extends BaseController {
-    @RequestMapping("/")
-    public String Home() {
+    @RequestMapping(value = {"", "/", "index"})
+    public String Index() {
         return "index";
     }
 
-    @RequestMapping("/index")
-    public String Index() {
-        return Home();
-    }
-
-    @RequestMapping("/get-menu")
+    @RequestMapping(value = {"/get-menu"}, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String GetMenu() {
         return MenuModel.GetInstance().GetMenuJSONObject().toJSONString();

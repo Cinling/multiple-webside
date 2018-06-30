@@ -4,6 +4,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -17,6 +18,15 @@ public class BaseController {
         ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes();
         return attrs.getRequest();
+    }
+
+    /**
+     * @return RESPONSE 对象
+     */
+    protected HttpServletResponse GetResponse() {
+        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes();
+        return attrs.getResponse();
     }
 
     /**
