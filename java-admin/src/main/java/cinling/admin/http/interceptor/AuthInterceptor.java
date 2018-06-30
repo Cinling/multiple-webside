@@ -22,6 +22,13 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
         HttpSession session = httpServletRequest.getSession();
+        String uri = httpServletRequest.getRequestURI();
+
+        // 放行静态资源
+        if (this.IsStaticResourceURI(uri)) {
+            return true;
+        }
+
         AdminUserModel adminUserModel = new AdminUserModel();
 
         // 如果没有登陆，则判断是否已经初始化管理员账号
@@ -31,13 +38,13 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (!adminUserModel.IsInitAdminUserAccount()) {
 
                 // 如果当前页面不是合法的，则跳转到初始化页面
-                if (!this.IsInitAdminUserURI(httpServletRequest.getRequestURI())) {
+                if (!this.IsInitAdminUserURI(uri)) {
                     httpServletResponse.sendRedirect("/admin-user/init");
                     return false;
                 }
             }
         } else {
-            // 跳转到登陆页面
+            // ########### 跳转到登陆页面
             return false;
         }
 
@@ -52,7 +59,7 @@ public class AuthInterceptor implements HandlerInterceptor {
      * @param modelAndView 返回的 视图对象
      */
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         System.out.println("postHandle() -- START");
 
         System.out.println("postHandle() -- END\n");
@@ -66,7 +73,7 @@ public class AuthInterceptor implements HandlerInterceptor {
      * @param ex 未知
      */
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         System.out.println("afterCompletion() -- START");
 
         System.out.println("afterCompletion() -- END\n");
@@ -99,6 +106,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         return this.initAdminUserURISet;
+    }
+
+    /**
+     * @param uri 请求的 uri 部分
+     * @return 判断 uri 是否是静态资源
+     */
+    private boolean IsStaticResourceURI(String uri) {
+        return (uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".jpg") || uri.endsWith(".png"));
     }
 }
 

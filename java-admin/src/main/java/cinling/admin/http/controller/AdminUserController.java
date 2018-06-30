@@ -25,7 +25,7 @@ public class AdminUserController extends BaseController {
 
     /**
      * 初始化管理员账号的页面
-     * @return
+     * @return html页面
      */
     @GetMapping("init")
     public String InitAdminUserPage() {
