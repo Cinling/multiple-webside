@@ -4,33 +4,26 @@
     <meta charset="UTF-8">
     <title>账号初始化</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/admin-user/init.css}" />
+    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/css/admin-user/init.css')}" />
 </head>
 <body>
 
 <div class="container srv-init-container">
-    <table>
-        <tbody>
-            <tr>
-                <td>管理员账号</td>
-                <td><label><input type="text" class="form-control" value="admin" disabled></label></td>
-            </tr>
-            <tr>
-                <td>管理员密码</td>
-                <td><label><input type="text" class="form-control" value=""></label></td>
-            </tr>
-            <tr>
-                <td>再次确认</td>
-                <td><label><input type="text" class="form-control" value=""></label></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="srv-init-panel">
+        <label><input type="text" class="form-control srv-init-panel-item" placeholder="最高级管理员账号"></label>
+        <label><input type="text" class="form-control srv-init-panel-item" placeholder="密码"></label>
+        <label><input type="text" class="form-control srv-init-panel-item" placeholder="再次确认"></label>
+        <button type="button" class="btn btn-primary srv-init-panel-item">确认</button>
+    </div>
 </div>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+</script>
 
 </body>
 </html>
