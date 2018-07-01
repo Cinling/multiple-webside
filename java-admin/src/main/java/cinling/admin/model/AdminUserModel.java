@@ -12,6 +12,19 @@ import javax.servlet.http.HttpSession;
  */
 @Component
 public class AdminUserModel {
+
+    private static AdminUserModel shareInstance = null;
+    private AdminUserModel() {
+
+    }
+    public static AdminUserModel GetInstance() {
+        if (AdminUserModel.shareInstance == null) {
+            AdminUserModel.shareInstance = new AdminUserModel();
+        }
+        return AdminUserModel.shareInstance;
+    }
+
+
     /**
      * 判断是否已经登陆
      * @return 是否登陆
@@ -29,11 +42,7 @@ public class AdminUserModel {
 
         AdminUserService adminUserService = SpringUtil.getBean(AdminUserServiceImpl.class);
 
-        if (adminUserService.GetCount() == 0) {
-            return false;
-        }
-
-        return true;
+        return adminUserService.GetCount() != 0;
     }
 
 }

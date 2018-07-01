@@ -2,6 +2,12 @@
     margin-top: 200px;
 }
 
+.srv-init-title {
+    margin:0 auto;
+    width:420px;
+    text-align: center;
+}
+
 .srv-init-panel {
     margin:0 auto;
     padding: 40px;

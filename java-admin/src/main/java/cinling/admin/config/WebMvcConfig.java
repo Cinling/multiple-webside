@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.resource.ContentVersionStrategy;
+import org.springframework.web.servlet.resource.VersionResourceResolver;
 
 /**
  * 拦截器配置
  */
 @Configuration
-public class InterceptorConfig extends WebMvcConfigurationSupport {
+public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * 程序所需实现的拦截器
@@ -30,7 +32,14 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        VersionResourceResolver versionResourceResolver = new VersionResourceResolver()
+                .addVersionStrategy(new ContentVersionStrategy(), "/**");
+
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
+            .setCachePeriod(86400 * 30)     // 缓存30天
+            .resourceChain(true)    // 开启md5匹配后缀
+            .addResolver(versionResourceResolver);
+
         super.addResourceHandlers(registry);
     }
 }

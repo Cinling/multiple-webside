@@ -29,7 +29,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        AdminUserModel adminUserModel = new AdminUserModel();
+        AdminUserModel adminUserModel = AdminUserModel.GetInstance();
 
         // 如果没有登陆，则判断是否已经初始化管理员账号
         if (!adminUserModel.IsLogin(session)) {
@@ -103,6 +103,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             this.initAdminUserURISet = new HashSet<>();
 
             this.initAdminUserURISet.add("/admin-user/init");
+            this.initAdminUserURISet.add("/admin-user/init-admin-user");
         }
 
         return this.initAdminUserURISet;
