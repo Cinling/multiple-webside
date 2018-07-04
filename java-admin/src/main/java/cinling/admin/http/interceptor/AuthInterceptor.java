@@ -39,13 +39,16 @@ public class AuthInterceptor implements HandlerInterceptor {
 
                 // 如果当前页面不是合法的，则跳转到初始化页面
                 if (!this.IsInitAdminUserURI(uri)) {
-                    httpServletResponse.sendRedirect("/admin-user/init");
+                    httpServletResponse.sendRedirect("/admin-user/init-page");
+                    return false;
+                }
+            } else {
+                if (!this.IsInNotLoginAllowURI(uri)) {
+                    // 跳转到登陆页面
+                    httpServletResponse.sendRedirect("/admin-user/login-page");
                     return false;
                 }
             }
-        } else {
-            // ########### 跳转到登陆页面
-            return false;
         }
 
         return true;
@@ -60,9 +63,7 @@ public class AuthInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        System.out.println("postHandle() -- START");
 
-        System.out.println("postHandle() -- END\n");
     }
 
     /**
@@ -74,9 +75,7 @@ public class AuthInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        System.out.println("afterCompletion() -- START");
 
-        System.out.println("afterCompletion() -- END\n");
     }
 
     /**
@@ -102,12 +101,44 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (this.initAdminUserURISet == null) {
             this.initAdminUserURISet = new HashSet<>();
 
-            this.initAdminUserURISet.add("/admin-user/init");
+            this.initAdminUserURISet.add("/admin-user/init-page");
             this.initAdminUserURISet.add("/admin-user/init-admin-user");
         }
 
         return this.initAdminUserURISet;
     }
+
+
+    /**
+     * 未登录时允许访问的 URI Set
+     */
+    private HashSet<String> allowURIInNotLoginSet = null;
+
+    /**
+     * @return 获取  未登录时允许访问的 URI Set
+     */
+    private HashSet<String> GetAllowURIInNotLoginSet() {
+        if (this.allowURIInNotLoginSet == null) {
+            this.allowURIInNotLoginSet = new HashSet<>();
+
+            this.allowURIInNotLoginSet.add("/admin-user/login-page");
+            this.allowURIInNotLoginSet.add("/admin-user/login");
+        }
+
+        return this.allowURIInNotLoginSet;
+    }
+
+    /**
+     * @param uri 判断这个 uri 是否允许在未登录是访问
+     * @return true：允许， false：不允许
+     */
+    private boolean IsInNotLoginAllowURI(String uri) {
+        HashSet<String> allowUriSet = this.GetAllowURIInNotLoginSet();
+
+        return allowUriSet.contains(uri);
+    }
+
+
 
     /**
      * @param uri 请求的 uri 部分
@@ -116,5 +147,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     private boolean IsStaticResourceURI(String uri) {
         return (uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".jpg") || uri.endsWith(".png"));
     }
+
+
 }
 

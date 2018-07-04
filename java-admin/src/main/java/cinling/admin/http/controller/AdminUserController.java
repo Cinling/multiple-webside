@@ -33,11 +33,11 @@ public class AdminUserController extends BaseController {
      * 初始化管理员账号的页面
      * @return html页面
      */
-    @GetMapping("init")
+    @GetMapping("init-page")
     public String InitAdminUserPage() {
         // 如果已经创建了管理员账号，则跳转到登陆页面
         if (AdminUserModel.GetInstance().IsInitAdminUserAccount()) {
-
+            return this.LoginPage();
         }
         return "admin-user/init";
     }
@@ -48,7 +48,7 @@ public class AdminUserController extends BaseController {
      */
     @GetMapping("login-page")
     public String LoginPage() {
-        return "";
+        return "admin-user/login";
     }
 
     @PostMapping(value = "init-admin-user", produces = "application/json;charset=UTF-8")

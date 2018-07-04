@@ -25,6 +25,8 @@ spring:
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
         maxOpenPreparedStatements: 20
+    thymeleaf:
+      cache: false
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
