@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>java-admin</groupId>
-    <artifactId>java-admin</artifactId>
+    <groupId>cinling.common</groupId>
+    <artifactId>java-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>java-admin</name>
+    <name>java-common</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -25,23 +25,11 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>cinling</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cinling</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>cinling</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>java-admin</finalName>
+        <finalName>java-common</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

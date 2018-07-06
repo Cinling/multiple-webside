@@ -18,7 +18,7 @@ var Menu = {
         <!--导航栏-->
 
         $.ajax({
-            url: "/get-menu",
+            url: "get-menu",
             method: "get",
             async: true,
             dataType: "text",

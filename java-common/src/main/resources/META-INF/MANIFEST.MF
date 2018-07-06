@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Start-Class: cinling.admin.JavaAdminApplication
+Spring-Boot-Classes: WEB-INF/classes/
+Spring-Boot-Lib: WEB-INF/lib/
+Spring-Boot-Version: 1.4.0.RELEASE
+Main-Class: cinling.admin.JavaAdminApplication

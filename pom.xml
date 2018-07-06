@@ -6,7 +6,7 @@
     <groupId>cinling</groupId>
     <artifactId>multiple-webside</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>multiple-webside</name>
     <description>Demo project for Spring Boot</description>
@@ -118,14 +118,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <!--热部署-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-            <scope>true</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -133,14 +125,32 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <dependencies>
-                    <!-- spring热部署 -->
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>1.2.6.RELEASE</version>
-                    </dependency>
-                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <skipTests>true</skipTests>
+                    <!-- 打成war包时名子 -->
+                    <warName>multiple-webside</warName>
+                    <!-- mave时启用的main路径（因为其他包里面测试时也加了main函数） -->
+                    <mainClass>cinling.admin.JavaAdminApplication</mainClass>
+                    <skip>true</skip><!-- 跳过测试 -->
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                        </goals>
+                        <!--可以生成不含依赖包的不可执行Jar包-->
+                        <!-- configuration>
+                          <classifier>exec</classifier>
+                        </configuration> -->
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
