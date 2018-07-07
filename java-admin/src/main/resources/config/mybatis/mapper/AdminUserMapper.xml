@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.cinling.admin.database.mapper.AdminUserMapper" >
+
+    <insert id="Insert" parameterType="cn.cinling.admin.database.entity.AdminUserEntity">
+        INSERT INTO admin_user (id, account, password, nickname, create_time)
+        VALUES (#{id}, #{account}, #{password}, #{nickname}, #{createTime})
+    </insert>
+
+    <select id="SelectAll" resultType="cn.cinling.admin.database.entity.AdminUserEntity">
+        SELECT * FROM admin_user
+    </select>
+
+    <select id="SelectCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM admin_user
+    </select>
+
+    <select id="SearchByAccount" resultType="cn.cinling.admin.database.entity.AdminUserEntity">
+        SELECT * FROM admin_user WHERE account=#{account}
+    </select>
+
+</mapper>

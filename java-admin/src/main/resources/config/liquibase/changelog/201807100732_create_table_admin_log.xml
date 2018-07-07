@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="201807100732_create_table_admin_log" author="Administrator">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="admin_log"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="admin_log">
+            <column name="id" type="int unsigned" autoIncrement="true" remarks="">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="type" type="varbinary(16)" remarks="info：普通日志，debug：debug日志，warning：警报日志，error：错误日志">
+                <constraints nullable="false" />
+            </column>
+            <column name="message" type="blob" remarks="日志详情。最多存储64K数据">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="int unsigned" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
