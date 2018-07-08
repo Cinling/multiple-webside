@@ -1,10 +1,14 @@
 package cinling.admin.http.interceptor;
 
+import cinling.admin.model.AdminUserModel;
+import cinling.admin.model.UrlModel;
+import cinling.admin.model.exception.UrlModelException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 
 public class AuthInterceptor implements HandlerInterceptor {
@@ -19,35 +23,44 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
-//        HttpSession session = httpServletRequest.getSession();
-//        String uri = httpServletRequest.getRequestURI();
-//
-//        // 放行静态资源
-//        if (this.IsStaticResourceURI(uri)) {
-//            return true;
-//        }
-//
-//        AdminUserModel adminUserModel = AdminUserModel.GetInstance();
-//
-//        // 如果没有登陆，则判断是否已经初始化管理员账号
-//        if (!adminUserModel.IsLogin(session)) {
-//
-//            // 判断是否需要进行初始化管理员账号
-//            if (!adminUserModel.IsInitAdminUserAccount()) {
-//
-//                // 如果当前页面不是合法的，则跳转到初始化页面
-//                if (!this.IsInitAdminUserURI(uri)) {
-//                    httpServletResponse.sendRedirect("/admin-user/init-page");
-//                    return false;
-//                }
-//            } else {
-//                if (!this.IsInNotLoginAllowURI(uri)) {
-//                    // 跳转到登陆页面
-//                    httpServletResponse.sendRedirect("/admin-user/login-page");
-//                    return false;
-//                }
-//            }
-//        }
+        UrlModel urlModel = UrlModel.GetInstance();
+
+        try {
+            String projectUri = urlModel.ToProjectUri(httpServletRequest.getRequestURI());
+            System.out.println(projectUri);
+        } catch (UrlModelException urlModelException) {
+            // ########## 这里需要写错误日志
+        }
+
+        HttpSession session = httpServletRequest.getSession();
+        String uri = urlModel.ToProjectUri(httpServletRequest.getRequestURI());
+
+        // 放行静态资源
+        if (this.IsStaticResourceURI(uri)) {
+            return true;
+        }
+
+        AdminUserModel adminUserModel = AdminUserModel.GetInstance();
+
+        // 如果没有登陆，则判断是否已经初始化管理员账号
+        if (!adminUserModel.IsLogin(session)) {
+
+            // 判断是否需要进行初始化管理员账号
+            if (!adminUserModel.IsInitAdminUserAccount()) {
+
+                // 如果当前页面不是合法的，则跳转到初始化页面
+                if (!this.IsInitAdminUserURI(uri)) {
+                    httpServletResponse.sendRedirect(urlModel.ToClientRequestUrl("/admin-user/init-page"));
+                    return false;
+                }
+            } else {
+                if (!this.IsInNotLoginAllowURI(uri)) {
+                    // 跳转到登陆页面
+                    httpServletResponse.sendRedirect(urlModel.ToClientRequestUrl("/admin-user/login-page"));
+                    return false;
+                }
+            }
+        }
 
         return true;
     }
@@ -99,8 +112,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (this.initAdminUserURISet == null) {
             this.initAdminUserURISet = new HashSet<>();
 
-            this.initAdminUserURISet.add("/admin-user/init-page");
-            this.initAdminUserURISet.add("/admin-user/init-admin-user");
+            this.initAdminUserURISet.add("admin-user/init-page");
+            this.initAdminUserURISet.add("admin-user/init-admin-user");
         }
 
         return this.initAdminUserURISet;
@@ -119,8 +132,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (this.allowURIInNotLoginSet == null) {
             this.allowURIInNotLoginSet = new HashSet<>();
 
-            this.allowURIInNotLoginSet.add("/admin-user/login-page");
-            this.allowURIInNotLoginSet.add("/admin-user/login");
+            this.allowURIInNotLoginSet.add("admin-user/login-page");
+            this.allowURIInNotLoginSet.add("admin-user/login");
         }
 
         return this.allowURIInNotLoginSet;

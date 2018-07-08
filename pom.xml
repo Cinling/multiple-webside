@@ -119,6 +119,7 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- tomcat支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>

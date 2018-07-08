@@ -32,14 +32,11 @@ public class MenuModel {
      */
     private void InitMenu() {
         // 菜单根节点
-        this.menu = new Menu("菜单");
-
-        // 系统
-        Menu system = new Menu("系统");
-        this.menu.AddChild(system);
-
-        // 系统 - 服务器状态
-        system.AddChild(new Menu("服务器状态", "/admin-system-monitor/"));
+        this.menu = new Menu("菜单").AddChild(
+                new Menu("系统").AddChild(
+                        new Menu("服务器状态", "/admin-system-monitor/")
+                )
+        );
     }
 
     /**

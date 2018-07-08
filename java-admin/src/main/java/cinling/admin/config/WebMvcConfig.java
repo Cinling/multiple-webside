@@ -1,6 +1,7 @@
 package cinling.admin.config;
 
 import cinling.admin.http.interceptor.AuthInterceptor;
+import cinling.admin.http.interceptor.InjectionInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,6 +23,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加权限拦截器
         registry.addInterceptor(new AuthInterceptor())
+                .addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
+
+        // 添加对象注入器
+        registry.addInterceptor(new InjectionInterceptor())
                 .addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
 
         super.addInterceptors(registry);

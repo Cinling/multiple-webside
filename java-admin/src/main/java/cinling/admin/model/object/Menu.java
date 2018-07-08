@@ -17,12 +17,13 @@ public class Menu {
         this.url = url;
     }
 
-    public void AddChild(Menu childMenu) {
+    public Menu AddChild(Menu childMenu) {
         if (this.itemList == null) {
             this.itemList = new ArrayList<>();
         }
 
         this.itemList.add(childMenu);
+        return this;
     }
 
     public List<Menu> GetChildList() {
