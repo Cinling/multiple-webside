@@ -39,7 +39,12 @@ public class UrlModel {
         absUri += projectUri;
 
         if (projectUri.endsWith(".css") || projectUri.endsWith(".js") || projectUri.endsWith(".jpg")) {
-            String fileVersion = this.fileVersion;
+            String fileVersion;
+            if ("DEBUG".endsWith("DEBUG")) {
+                fileVersion = String.valueOf(System.currentTimeMillis());
+            } else {
+                fileVersion = this.fileVersion;
+            }
             absUri += "?v=" + fileVersion;
         }
 
@@ -56,8 +61,12 @@ public class UrlModel {
             return uri.substring(this.prefix.length() + 2);
         } else if (uri.startsWith(this.prefix)) {
             return uri.substring(this.prefix.length() + 1);
+        } else if (uri.equals("/") || uri.equals("")) {
+            return uri;
+        } else {
+            return uri;
         }
 
-        throw new UrlModelException("uri路径不正确");
+//        throw new UrlModelException("uri路径不正确");
     }
 }

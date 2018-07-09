@@ -1,28 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>登陆页面</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/css/admin-user/login.css')}" />
+    <!--/*@thymesVar id="url" type="cinling.admin.model.UrlModel"*/-->
+    <link rel="stylesheet" th:href="${url.To('/css/admin-user/login.css')}" />
 </head>
 <body>
+<header></header>
 
-<div id="mainVue" class="srv-login-container">
-    <div class="srv-login-panel">
-        aaa
-    </div>
-</div>
+<article id="mainVue" class="admin-login-container">
+    <section class="admin-login-panel">
+        <input id="account" class="form-control admin-login-panel-item" type="text" placeholder="账号">
+        <input id="password" class="form-control admin-login-panel-item" type="password" placeholder="密码">
+        <button type="button" class="btn btn-primary admin-login-panel-item" v-on:click="Login">登录</button>
+    </section>
+</article>
 
+<footer></footer>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
 
-<script type="text/javascript">
+<!--/*@thymesVar id="url" type="cinling.admin.model.UrlModel"*/-->
+<script th:src="${url.To('/js/encryption.js')}"></script>
 
+<script type="text/javascript">
+    mainVue = new Vue({
+        el: "#mainVue",
+        methods: {
+            Login: function() {
+                let account = $("#account").val();
+                let password = MD5($("#password").val());
+
+                $.ajax({
+                    url: "[[ ${url.To('admin-user/login')} ]]",
+                    data: {account: account, password: password},
+                    method: "post",
+                    dataType: "json",
+                    success: function(json) {
+                        if (json.code > 0) {
+                            window.location = "[[ ${url.To('index')} ]]";
+                        } else {
+                            console.error("登录失败");
+                            alert("登录失败");
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        }
+    });
 </script>
 
 </body>

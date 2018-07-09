@@ -10,6 +10,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class JavaAdminApplication extends SpringBootServletInitializer {
 
+    /**
+     * tomcat 启动所需的方法
+     */
     public SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(JavaAdminApplication.class);
     }

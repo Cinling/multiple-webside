@@ -3,7 +3,8 @@ package cinling.admin.http.controller;
 import cinling.admin.database.entity.AdminUserEntity;
 import cinling.admin.database.service.admin_user.AdminUserService;
 import cinling.admin.model.AdminUserModel;
-import cinling.admin.model.ApiResponseModel;
+import cinling.admin.model.ApiResponse;
+import cinling.admin.model.exception.AdminUserModelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 管理员控制器
+ */
 @Controller
 @RequestMapping(value = "admin-user")
 public class AdminUserController extends BaseController {
@@ -51,6 +55,9 @@ public class AdminUserController extends BaseController {
         return "admin-user/login";
     }
 
+    /**
+     * @return 初始化管理员账号
+     */
     @PostMapping(value = "init-admin-user", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String InitAdminUser() {
@@ -59,23 +66,46 @@ public class AdminUserController extends BaseController {
         String password = request.getParameter("password");
 
         if (AdminUserModel.GetInstance().IsInitAdminUserAccount()) {
-            return ApiResponseModel.GetInstance().ReturnJson(ApiResponseModel.FAIL_ADMIN_USER_WAS_EXISTS);
+            return new ApiResponse().ReturnJson(ApiResponse.FAIL_ADMIN_USER_WAS_EXISTS);
         }
 
         if (username.isEmpty() || password.isEmpty()) {
-            return ApiResponseModel.GetInstance().ReturnJson(ApiResponseModel.FAIL_EMPTY_USERNAME_OR_PASSWORD);
+            return new ApiResponse().ReturnJson(ApiResponse.FAIL_EMPTY_ACCOUNT_OR_PASSWORD);
         }
 
         int createTime = (int) (System.currentTimeMillis() / 1000);
         AdminUserEntity adminUserEntity = new AdminUserEntity(username, password, "系统管理员", createTime);
         adminUserService.AddAdminUser(adminUserEntity);
 
-        return ApiResponseModel.GetInstance().ReturnJson(ApiResponseModel.SUCC_SUCC);
+        return new ApiResponse().ReturnJson(ApiResponse.SUCC_SUCC);
     }
 
+    /**
+     * @return 测试
+     */
     @ResponseBody
     @RequestMapping("test")
     public String Test() {
         return String.valueOf(adminUserService.GetCount());
+    }
+
+    /**
+     * 进行登录
+     * @return json
+     */
+    @ResponseBody
+    @PostMapping(value = "login", produces = "application/json;charset=UTF-8")
+    public String Login() {
+        HttpServletRequest request = this.GetRequest();
+        String account = request.getParameter("account");
+        String password = request.getParameter("password");
+
+        try {
+            AdminUserModel.GetInstance().Login(account, password);
+        } catch (AdminUserModelException e) {
+            return e.GetApiResponse().ReturnJson();
+        }
+
+        return new ApiResponse(ApiResponse.SUCC_LOGIN).ReturnJson();
     }
 }

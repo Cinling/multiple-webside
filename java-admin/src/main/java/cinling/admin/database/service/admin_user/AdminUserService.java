@@ -12,6 +12,8 @@ public interface AdminUserService {
      */
     int AddAdminUser(AdminUserEntity adminUserEntity);
 
+    AdminUserEntity GetByAccount(String account);
+
     /**
      * 获取所有数据
      * @return 管理员数据列表

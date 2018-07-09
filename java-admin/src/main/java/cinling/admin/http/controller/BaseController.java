@@ -5,7 +5,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * 所有控制器的基类
@@ -29,10 +28,10 @@ public class BaseController {
         return attrs.getResponse();
     }
 
-    /**
-     * @return HTTP SESSION 对象
-     */
-    protected HttpSession GetSession() {
-        return this.GetRequest().getSession();
-    }
+//    /**
+//     * @return HTTP SESSION 对象
+//     */
+//    protected HttpSession GetSession() {
+//        return this.GetRequest().getSession();
+//    }
 }

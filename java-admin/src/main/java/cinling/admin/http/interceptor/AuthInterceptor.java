@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 
 public class AuthInterceptor implements HandlerInterceptor {
@@ -32,7 +31,6 @@ public class AuthInterceptor implements HandlerInterceptor {
             // ########## 这里需要写错误日志
         }
 
-        HttpSession session = httpServletRequest.getSession();
         String uri = urlModel.ToProjectUri(httpServletRequest.getRequestURI());
 
         // 放行静态资源
@@ -43,7 +41,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         AdminUserModel adminUserModel = AdminUserModel.GetInstance();
 
         // 如果没有登陆，则判断是否已经初始化管理员账号
-        if (!adminUserModel.IsLogin(session)) {
+        if (!adminUserModel.IsLogin()) {
 
             // 判断是否需要进行初始化管理员账号
             if (!adminUserModel.IsInitAdminUserAccount()) {

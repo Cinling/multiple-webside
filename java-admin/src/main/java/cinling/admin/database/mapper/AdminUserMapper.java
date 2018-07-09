@@ -23,4 +23,11 @@ public interface AdminUserMapper {
      * @return 查询数据表中的数据条数
      */
     int SelectCount();
+
+    /**
+     * 根据账号查 管理员用户信息
+     * @param account
+     * @return
+     */
+    List<AdminUserEntity> SearchByAccount(String account);
 }

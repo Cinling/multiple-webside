@@ -19,6 +19,16 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    public AdminUserEntity GetByAccount(String account) {
+        List<AdminUserEntity> adminList = adminUserMapper.SearchByAccount(account);
+        if (adminList.size() == 0) {
+            return null;
+        }
+
+        return adminList.get(0);
+    }
+
+    @Override
     public List<AdminUserEntity> GetAll() {
         return this.adminUserMapper.SelectAll();
     }

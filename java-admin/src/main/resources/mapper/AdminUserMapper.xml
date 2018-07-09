@@ -8,13 +8,16 @@
     </insert>
 
     <select id="SelectAll" resultType="cinling.admin.database.entity.AdminUserEntity">
-        SELECT id, account, password, nickname, create_time
-        FROM admin_user
+        SELECT * FROM admin_user
     </select>
 
     <select id="SelectCount" resultType="Integer">
         SELECT COUNT(*)
         FROM admin_user
+    </select>
+
+    <select id="SearchByAccount" resultType="cinling.admin.database.entity.AdminUserEntity">
+        SELECT * FROM admin_user WHERE account=#{account}
     </select>
 
 </mapper>
