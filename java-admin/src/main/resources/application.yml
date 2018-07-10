@@ -32,7 +32,7 @@ spring:
       additional-paths: src/main/java,src/main/resources
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:config/mybatis/mapper/*.xml
   type-aliases-package: cinling.admin.database.entity
 
 mapper:
