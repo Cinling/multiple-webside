@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cinling.admin.database.mapper.AdminSystemMonitorMapper" >
+<mapper namespace="cn.cinling.admin.database.mapper.AdminSystemMonitorMapper" >
 
-    <select id="SelectByLimit" resultType="cinling.admin.database.entity.AdminSystemMonitorEntity">
+    <select id="SelectByLimit" resultType="cn.cinling.admin.database.entity.AdminSystemMonitorEntity">
         SELECT `id`, `memory_total`, `memory_use`, `disk_total`, `disk_use`, `time`
         FROM `admin_system_monitor` LIMIT #{skip}, #{limit}
     </select>
 
-    <insert id="Insert" parameterType="cinling.admin.database.entity.AdminSystemMonitorEntity">
+    <insert id="Insert" parameterType="cn.cinling.admin.database.entity.AdminSystemMonitorEntity">
         INSERT INTO `admin_system_monitor` (`memory_total`, `memory_use`, `disk_total`, `disk_use`, `time`)
                 VALUES (#{memoryTotal}, #{memoryUse}, #{diskTotal}, #{diskUse}, #{time})
     </insert>
