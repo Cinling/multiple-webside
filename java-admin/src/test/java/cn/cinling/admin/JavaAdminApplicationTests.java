@@ -1,4 +1,4 @@
-package cinling.common;
+package cn.cinling.admin;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class JavaCommonApplicationTests {
+public class JavaAdminApplicationTests {
 
     @Test
     public void contextLoads() {
