@@ -1,6 +1,10 @@
 package cn.cinling.admin.model;
 
 import cn.cinling.admin.model.exception.UrlModelException;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class UrlModel {
     private static UrlModel shareInstance = null;
@@ -40,11 +44,16 @@ public class UrlModel {
 
         if (projectUri.endsWith(".css") || projectUri.endsWith(".js") || projectUri.endsWith(".jpg")) {
             String fileVersion;
-            if ("DEBUG".endsWith("DEBUG")) {
-                fileVersion = String.valueOf(System.currentTimeMillis());
-            } else {
-                fileVersion = this.fileVersion;
+
+            String relativePath = "static" + projectUri;
+            try {
+                File staticFile = ResourceUtils.getFile("classpath:" + relativePath);
+                fileVersion = String.valueOf(staticFile.lastModified());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                fileVersion = "error" + System.currentTimeMillis();
             }
+
             absUri += "?v=" + fileVersion;
         }
 

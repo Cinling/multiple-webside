@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="url" type="cn.cinling.admin.model.UrlModel"*/-->
 <head>
     <meta charset="UTF-8">
     <title>css,js资源列表</title>
@@ -17,28 +18,33 @@
 
 
 
+<!-- awesome, bootstrap 推荐的 icon 库 START -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<!-- awesome, bootstrap 推荐的 icon 库 END -->
+
+
+
 <!-- Vue.js CDN链接 START -->
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
 <!-- Vue.js CDN链接 END -->
 
 
-
 <!-- 自定义加密模块 START -->
-<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/js/encryption.js')}"></script>
+<script th:src="${url.To('/js/encryption.js')}"></script>
 <!-- 自定义加密模块 END -->
 
 
 
 <!-- 菜单控件 START -->
-<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/css/menu.css')}"/>
+<link rel="stylesheet" th:href="${url.To('/css/component/menu.css')}"/>
 
-<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/js/component/menu.js')}"></script>
+<script th:src="${url.To('/js/component/menu.js')}"></script>
 <!-- 菜单控件 END -->
 
 
 
 <!-- 翻页控件 START -->
-<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/js/component/pagination.js')}"></script>
+<script th:src="${url.To('/js/component/pagination.js')}"></script>
 <!-- 翻页控件 END -->
 
 </body>

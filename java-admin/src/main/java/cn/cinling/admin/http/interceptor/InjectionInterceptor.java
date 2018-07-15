@@ -36,7 +36,9 @@ public class InjectionInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        modelAndView.addObject("url", UrlModel.GetInstance());
+        if (modelAndView != null) {
+            modelAndView.addObject("url", UrlModel.GetInstance());
+        }
     }
 
     /**
