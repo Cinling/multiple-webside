@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--/*@thymesVar id="assetManager" type="cn.cinling.admin.manager.AssetManager"*/-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>登陆页面</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <!--/*@thymesVar id="url" type="cn.cinling.admin.model.UrlModel"*/-->
-    <link rel="stylesheet" th:href="${url.To('/css/admin-user/login.css')}" />
+    <link rel="stylesheet" th:href="${assetManager.BootstrapCssLink()}">
+    <link rel="stylesheet" th:href="${assetManager.To('/css/admin-user/login.css')}" />
 </head>
 <body>
 <header></header>
@@ -21,13 +21,11 @@
 
 <footer></footer>
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
-
-<!--/*@thymesVar id="url" type="cn.cinling.admin.model.UrlModel"*/-->
-<script th:src="${url.To('/js/encryption.js')}"></script>
+<script th:src="${assetManager.JqueryJsLink()}"></script>
+<script th:src="${assetManager.PopperJsLink()}"></script>
+<script th:src="${assetManager.BootstrapJsLink()}"></script>
+<script th:src="${assetManager.VueJsLink()}"></script>
+<script th:src="${assetManager.To('/js/encryption.js')}"></script>
 
 <script type="text/javascript">
     mainVue = new Vue({
@@ -38,13 +36,13 @@
                 let password = MD5($("#password").val());
 
                 $.ajax({
-                    url: "[[ ${url.To('admin-user/login')} ]]",
+                    url: "[[${assetManager.To('admin-user/login')}]]",
                     data: {account: account, password: password},
                     method: "post",
                     dataType: "json",
                     success: function(json) {
                         if (json.code > 0) {
-                            window.location = "[[ ${url.To('index')} ]]";
+                            window.location = "[[${assetManager.To('index')}]]";
                         } else {
                             console.error("登录失败");
                             alert("登录失败");

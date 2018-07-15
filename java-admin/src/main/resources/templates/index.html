@@ -1,46 +1,364 @@
 <!DOCTYPE html>
 <html lang="zh"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<!--/*@thymesVar id="assetManager" type="cn.cinling.admin.manager.AssetManager"*/-->
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
     <title>Title</title>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <!--<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/css/menu.css')}" />-->
-    <link rel="stylesheet" th:href="${url.To('/css/menu.css')}" />
-    
+
+    <link rel="stylesheet" th:href="${assetManager.BootstrapCssLink()}">
+    <link rel="stylesheet" th:href="${assetManager.AwesomeCssLink()}">
+    <link rel="stylesheet" th:href="${assetManager.To('3rd/pro-sidebar-template/assets/css/custom.css')}">
+    <link rel="stylesheet" th:href="${assetManager.To('3rd/pro-sidebar-template/assets/css/custom-themes.css')}">
+    <link rel="stylesheet" th:href="${assetManager.To('css/index.css')}">
+
 </head>
 <body>
-<div id="indexVue">
-    <!--菜单-->
-    <span v-html="menuHtml"></span>
-</div>
+<header>
+    <script th:src="${assetManager.JqueryJsLink()}"></script>
+    <script th:src="${assetManager.PopperJsLink()}"></script>
+    <script th:src="${assetManager.BootstrapJsLink()}"></script>
+    <script th:src="${assetManager.VueJsLink()}"></script>
+    <!--<script th:src="${assetManager.To('3rd/pro-sidebar-template/assets/js/custom.js')}"></script>-->
+</header>
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<article class="page-wrapper chiller-theme sidebar-bg bg1">
+    <div class="i-nav" onmouseover="HideMenu()">
+        <section onclick="ShowMenu()">
+            <i class="fas fa-bars" ></i>
+        </section>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a href="javascript:void(0)">主页</a>
+                <div id="close-sidebar" v-on:click="HideMenu">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <!--<div class="sidebar-header">-->
+                <!--<div class="user-pic">-->
+                    <!--<img class="img-responsive img-rounded" src="/java-admin/3rd/pro-sidebar-template/assets/img/user.jpg" alt="User picture">-->
+                <!--</div>-->
+                <!--<div class="user-info">-->
+                    <!--<span class="user-name">Jhon-->
+                        <!--<strong>Smith</strong>-->
+                    <!--</span>-->
+                    <!--<span class="user-role">Administrator</span>-->
+                    <!--<span class="user-status">-->
+                        <!--<i class="fa fa-circle"></i>-->
+                        <!--<span>Online</span>-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!-- sidebar-header  -->
+            <!--<div class="sidebar-search">-->
+                <!--<div>-->
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" class="form-control search-menu" placeholder="Search...">-->
+                        <!--<div class="input-group-append">-->
+                            <!--<span class="input-group-text">-->
+                                <!--<i class="fa fa-search" aria-hidden="true"></i>-->
+                            <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <!--二级类型的菜单-->
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <template v-for="menu in menuData.child">
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)" v-on:click="ToggleSubMenu">
+                            <i v-bind:class="(menu.icon === '') ? 'fas fa-server' : menu.icon"></i>
+                            <span>{{menu.name}}</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <template v-for="menuItem in menu.child">
+                                <li>
+                                    <a href="javascript:void(0)" v-on:click="OpenUrl" v-bind:data-url="menuItem.url">{{menuItem.name}}</a>
+                                </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </li>
+                    </template>
 
-<!--<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/js/component/menu.js')}"></script>-->
-<script th:src="${url.To('/js/component/menu.js')}"></script>
+                    <!--单列菜单-->
+                    <!--<li class="header-menu">-->
+                        <!--<span>Extra</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<i class="fa fa-calendar"></i>-->
+                            <!--<span>Calendar</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<i class="fa fa-folder"></i>-->
+                            <!--<span>Examples</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<i class="fa fa-book"></i>-->
+                            <!--<span>Documentation</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <div class="dropdown">
+
+                <a href="#" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bell"></i>
+                    <!--<span class="badge badge-pill badge-warning notification">3</span>-->
+                </a>
+                <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
+                    <div class="notifications-header">
+                        <i class="fa fa-bell"></i>
+                        Notifications
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <div class="notification-content">
+                            <div class="icon">
+                                <i class="fas fa-check text-success border border-success"></i>
+                            </div>
+                            <div class="content">
+                                <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                <div class="notification-time">
+                                    6 minutes ago
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="notification-content">
+                            <div class="icon">
+                                <i class="fas fa-exclamation text-info border border-info"></i>
+                            </div>
+                            <div class="content">
+                                <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                <div class="notification-time">
+                                    Today
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="notification-content">
+                            <div class="icon">
+                                <i class="fas fa-exclamation-triangle text-warning border border-warning"></i>
+                            </div>
+                            <div class="content">
+                                <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                                <div class="notification-time">
+                                    Yesterday
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-center" href="#">View all notifications</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-envelope"></i>
+                    <!--<span class="badge badge-pill badge-success notification">7</span>-->
+                </a>
+                <div class="dropdown-menu messages" aria-labelledby="dropdownMenuMessage">
+                    <div class="messages-header">
+                        <i class="fa fa-envelope"></i>
+                        Messages
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <div class="message-content">
+                            <div class="pic">
+                                <img src="/java-admin/3rd/pro-sidebar-template/assets/img/user.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="message-title">
+                                    <strong> Jhon doe</strong>
+                                </div>
+                                <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="message-content">
+                            <div class="pic">
+                                <img src="/java-admin/3rd/pro-sidebar-template/assets/img/user.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="message-title">
+                                    <strong> Jhon doe</strong>
+                                </div>
+                                <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="message-content">
+                            <div class="pic">
+                                <img src="/java-admin/3rd/pro-sidebar-template/assets/img/user.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="message-title">
+                                    <strong> Jhon doe</strong>
+                                </div>
+                                <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-center" href="#">View all messages</a>
+
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="" id="dropdownMenuMessage2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                    <span class="badge-sonar"></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
+                    <a class="dropdown-item" href="#">My profile</a>
+                    <a class="dropdown-item" href="#">Help</a>
+                    <a class="dropdown-item" href="#">Setting</a>
+                </div>
+            </div>
+            <div>
+                <a href="#">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content" onmouseover="HideMenu()">
+        <div class="container-fluid">
+
+        </div>
+    </main>
+    <!-- page-content" -->
+</article>
+
+<footer>
+
+</footer>
 
 <script type="text/javascript">
-    let indexVue = new Vue({
-        el: "#indexVue",
+    sidebarVue = new Vue({
+        el: "#sidebar",
         data: {
-            menuHtml: ""
+            menuData: {}
         },
-        /**
-         * 对象创建后执行的方法
-         */
+
         created: function() {
-            // 初始化菜单
-            Menu.GetMenuHtml(function(menuHtml) {
-                indexVue.menuHtml = menuHtml;
-            });
+            this.RequestMenuData();
+        },
+
+        methods: {
+            RequestMenuData: function() {
+                $.ajax({
+                    url: "[[${assetManager.To('/home/get-menu')}]]",
+                    method: "post",
+                    dataType: "json",
+                    success: function(json) {
+                        sidebarVue.menuData = json;
+                    },
+                    error: function(err) {
+                        console.error(err);
+                    }
+                });
+            },
+
+            OpenUrl: function (event) {
+                let url = $(event.target).data("url");
+
+                $.ajax({
+                    url: url,
+                    method: "post",
+                    dataType: "text",
+                    success: function(html) {
+                        $(".container-fluid").html(html);
+                    },
+                    error: function(err) {
+                        console.error(err);
+                    }
+                });
+            },
+
+            /**
+             * 显示菜单
+             */
+            ShowMenu: function () {
+                $(".page-wrapper").addClass("toggled");
+            },
+
+            /**
+             * 隐藏菜单
+             */
+            HideMenu: function () {
+                $(".page-wrapper").removeClass("toggled");
+            },
+
+            /**
+             * 切换子菜单显示或隐藏
+             * @param event
+             */
+            ToggleSubMenu: function(event) {
+                let thisDom = event.target;
+
+                $(".sidebar-submenu").slideUp(200);
+                if ($(thisDom).parent().hasClass("active")) {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(thisDom).parent().removeClass("active");
+                } else {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(thisDom).next(".sidebar-submenu").slideDown(200);
+                    $(thisDom).parent().addClass("active");
+                }
+            }
         }
     });
+
+    /**
+     * 显示菜单。提供给 vue 容器外的标签使用
+     */
+    function ShowMenu() {
+        setTimeout(function(){
+            sidebarVue.ShowMenu();
+        });
+    }
+
+    /**
+     * 隐藏菜单
+     */
+    function HideMenu() {
+        setTimeout(function(){
+            sidebarVue.HideMenu();
+        });
+    }
 </script>
+
 </body>
 </html>

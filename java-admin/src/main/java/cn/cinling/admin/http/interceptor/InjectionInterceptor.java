@@ -1,7 +1,7 @@
 package cn.cinling.admin.http.interceptor;
 
 
-import cn.cinling.admin.model.UrlModel;
+import cn.cinling.admin.manager.AssetManager;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,7 +36,9 @@ public class InjectionInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        modelAndView.addObject("url", UrlModel.GetInstance());
+        if (modelAndView != null) {
+            modelAndView.addObject("assetManager", AssetManager.GetInstance());
+        }
     }
 
     /**

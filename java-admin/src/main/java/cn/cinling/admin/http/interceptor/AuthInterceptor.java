@@ -1,8 +1,7 @@
 package cn.cinling.admin.http.interceptor;
 
+import cn.cinling.admin.manager.AssetManager;
 import cn.cinling.admin.model.AdminUserModel;
-import cn.cinling.admin.model.UrlModel;
-import cn.cinling.admin.model.exception.UrlModelException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,16 +21,13 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
-        UrlModel urlModel = UrlModel.GetInstance();
+        AssetManager assetManager = AssetManager.GetInstance();
 
-        try {
-            String projectUri = urlModel.ToProjectUri(httpServletRequest.getRequestURI());
-            System.out.println(projectUri);
-        } catch (UrlModelException urlModelException) {
-            // ########## 这里需要写错误日志
-        }
+        String projectUri = assetManager.ToProjectUri(httpServletRequest.getRequestURI());
+        System.out.println(projectUri);
 
-        String uri = urlModel.ToProjectUri(httpServletRequest.getRequestURI());
+
+        String uri = assetManager.ToProjectUri(httpServletRequest.getRequestURI());
 
         // 放行静态资源
         if (this.IsStaticResourceURI(uri)) {
@@ -48,13 +44,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 
                 // 如果当前页面不是合法的，则跳转到初始化页面
                 if (!this.IsInitAdminUserURI(uri)) {
-                    httpServletResponse.sendRedirect(urlModel.ToClientRequestUrl("/admin-user/init-page"));
+                    httpServletResponse.sendRedirect(assetManager.ToClientRequestUrl("/admin-user/init-page"));
                     return false;
                 }
             } else {
                 if (!this.IsInNotLoginAllowURI(uri)) {
                     // 跳转到登陆页面
-                    httpServletResponse.sendRedirect(urlModel.ToClientRequestUrl("/admin-user/login-page"));
+                    httpServletResponse.sendRedirect(assetManager.ToClientRequestUrl("/admin-user/login-page"));
                     return false;
                 }
             }
