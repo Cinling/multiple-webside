@@ -1,4 +1,4 @@
-package cn.cinling.admin.model;
+package cn.cinling.admin.manager;
 
 import cn.cinling.admin.model.exception.UrlModelException;
 import org.springframework.util.ResourceUtils;
@@ -6,21 +6,23 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class UrlModel {
-    private static UrlModel shareInstance = null;
-    private UrlModel () {
+public class AssetManager {
+    private static AssetManager shareInstance = null;
+    private AssetManager() {
         this.prefix = "java-admin";
-        this.fileVersion = String.valueOf(System.currentTimeMillis());
     }
-    public static UrlModel GetInstance() {
-        if (UrlModel.shareInstance == null) {
-            UrlModel.shareInstance = new UrlModel();
+    public static  AssetManager GetInstance() {
+        if (AssetManager.shareInstance == null) {
+            AssetManager.shareInstance = new AssetManager();
         }
-        return UrlModel.shareInstance;
+        return AssetManager.shareInstance;
     }
 
+
+    /**
+     * web访问路径的前缀
+     */
     private String prefix;
-    private String fileVersion;
 
     /**
      * @param projectUri 目标相对路径。 如：admin/login
@@ -75,7 +77,53 @@ public class UrlModel {
         } else {
             return uri;
         }
+    }
 
-//        throw new UrlModelException("uri路径不正确");
+
+
+
+
+
+
+    /**
+     * @return bootstrap 的 css 链接
+     */
+    public String BootstrapCssLink() {
+        return "https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css";
+    }
+
+    /**
+     * @return bootstrap 的 js 链接
+     */
+    public String BootstrapJsLink() {
+        return "https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js";
+    }
+
+    /**
+     * @return popper 的 js 链接
+     */
+    public String PopperJsLink() {
+        return "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js";
+    }
+
+    /**
+     * @return Vue.js 的 js 链接
+     */
+    public String VueJsLink() {
+        return "https://cdn.bootcss.com/vue/2.5.16/vue.min.js";
+    }
+
+    /**
+     * @return awesome 的 css 链接
+     */
+    public String AwesomeCssLink() {
+        return "https://use.fontawesome.com/releases/v5.1.0/css/all.css";
+    }
+
+    /**
+     * @return jquery 的 js 链接
+     */
+    public String JqueryJsLink() {
+        return "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js";
     }
 }
