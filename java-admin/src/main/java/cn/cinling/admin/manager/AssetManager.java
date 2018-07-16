@@ -39,7 +39,7 @@ public class AssetManager {
         String absUri = "/" + this.prefix;
 
         if (!projectUri.startsWith("/")) {
-            absUri += "/";
+            projectUri = "/" + projectUri;
         }
         absUri += projectUri;
 
