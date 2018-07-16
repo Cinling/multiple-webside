@@ -1,26 +1,19 @@
 
+.mwa-menu-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
 .mwa-menu-ul {
     position: fixed;
     width: 250px;
+    height: 100%;
+
+    background-color: #fff;
     user-select: none;
 }
 
-.mwa-menu-ul-l1 {
+.mwa-menu-ul-l1, .mwa-menu-ul-l2, .mwa-menu-ul-l3, .mwa-menu-ul-l4, .mwa-menu-ul-l5 {
     margin-left: 250px;
-}
-
-.mwa-menu-ul-l2 {
-    margin-left: 500px;
-}
-
-.mwa-menu-ul-l3 {
-    margin-left: 750px;
-}
-
-.mwa-menu-ul-l4 {
-    margin-left: 1000px;
-}
-
-.mwa-menu-ul-l5 {
-    margin-left: 1250px;
 }

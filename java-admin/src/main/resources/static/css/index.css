@@ -42,7 +42,7 @@ html, body, article {
 
 }
 
-.i-nav-menu-container {
+.i-menu-container {
     display: flex;
     position: fixed;
     top: 60px;

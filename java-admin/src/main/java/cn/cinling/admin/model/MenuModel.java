@@ -1,74 +1,64 @@
 package cn.cinling.admin.model;
 
-import cn.cinling.admin.model.object.Menu;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 菜单模块
  */
 public class MenuModel {
-    private static MenuModel shareInstance = null;
-    private MenuModel() {
-        this.InitMenu();
+    private String id;
+    private String name;
+    private String url;
+    private List<MenuModel> childList = null;
+
+    public MenuModel(String id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
     }
-    public static MenuModel GetInstance() {
-        if (MenuModel.shareInstance == null) {
-            MenuModel.shareInstance = new MenuModel();
+
+    public MenuModel AddChild(MenuModel childMenu) {
+        if (this.childList == null) {
+            this.childList = new ArrayList<>();
         }
-        return MenuModel.shareInstance;
+
+        this.childList.add(childMenu);
+        return this;
     }
 
+    public JSONObject ToJsonObject() {
+        JSONObject o = new JSONObject();
 
-    /**
-     * 菜单对象
-     */
-    private Menu menu;
+        o.put("id", this.id);
+        o.put("name", this.name);
+        o.put("url", this.url);
+        if (this.childList != null) {
+            o.put("child", this.GetChildJsonArray());
+        }
 
-    /**
-     * 初始化菜单
-     */
-    private void InitMenu() {
-        // 菜单根节点
-        this.menu = new Menu("菜单").AddChild(
-                new Menu("系统").AddChild(
-                        new Menu("服务器状态", "/admin-system-monitor/")
-                )
-        );
+        return o;
     }
 
-    /**
-     * @return 菜单 JSONObject 对象
-     */
-    public JSONObject GetMenuJSONObject() {
-        JSONObject menuJson = new JSONObject();
-        menuJson.put("name", this.menu.getName());
-        menuJson.put("child", this.GetChildArray(this.menu.GetChildList()));
-        return menuJson;
-    }
+    private JSONArray GetChildJsonArray() {
+        JSONArray a = new JSONArray();
 
-    /**
-     * 递归函数 Menu 子菜单列表转为 JSONArray 对象
-     * @param menuList 子菜单列表
-     * @return 子菜单列表转换的 JSONArray 对象
-     */
-    private JSONArray GetChildArray(List<Menu> menuList) {
-        JSONArray childArray = new JSONArray();
+        for(MenuModel menu: this.childList) {
+            JSONObject o = new JSONObject();
+            o.put("id", menu.id);
+            o.put("name", menu.name);
+            o.put("url", menu.url);
 
-        for (Menu menu: menuList) {
-            JSONObject menuObject = new JSONObject();
-            menuObject.put("name", menu.getName());
-            menuObject.put("url", menu.getUrl());
-
-            List<Menu> itemMenuList = menu.getItemList();
-            if (itemMenuList != null) {
-                menuObject.put("child", this.GetChildArray(itemMenuList));
+            if (menu.childList != null) {
+                o.put("child", menu.GetChildJsonArray());
             }
-            childArray.appendElement(menuObject);
+
+            a.appendElement(o);
         }
 
-        return childArray;
+        return a;
     }
 }

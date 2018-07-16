@@ -2,7 +2,6 @@ package cn.cinling.admin.http.interceptor;
 
 import cn.cinling.admin.manager.AssetManager;
 import cn.cinling.admin.model.AdminUserModel;
-import cn.cinling.admin.model.exception.UrlModelException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,12 +23,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         AssetManager assetManager = AssetManager.GetInstance();
 
-        try {
-            String projectUri = assetManager.ToProjectUri(httpServletRequest.getRequestURI());
-            System.out.println(projectUri);
-        } catch (UrlModelException urlModelException) {
-            // ########## 这里需要写错误日志
-        }
+        String projectUri = assetManager.ToProjectUri(httpServletRequest.getRequestURI());
+        System.out.println(projectUri);
+
 
         String uri = assetManager.ToProjectUri(httpServletRequest.getRequestURI());
 

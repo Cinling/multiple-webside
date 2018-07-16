@@ -38,10 +38,10 @@
 
                 </section>
             </nav>
+        </section>
 
-            <div class="i-nav-menu-container">
-                <mwa-menu th:url="${assetManager.To('home/get-menu')}"></mwa-menu>
-            </div>
+        <section class="i-menu-container">
+            <mwa-menu th:url="${assetManager.To('home/get-menu')}"></mwa-menu>
         </section>
     </section>
 </header>
@@ -74,11 +74,11 @@
 
         methods: {
             HideMenu: function() {
-                $(".i-nav-menu-container").hide();
+                $(".i-menu-container").hide();
             },
 
             ShowMenu: function() {
-                $(".i-nav-menu-container").show();
+                $(".i-menu-container").show();
             }
         }
     });

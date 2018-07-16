@@ -1,6 +1,5 @@
 package cn.cinling.admin.manager;
 
-import cn.cinling.admin.model.exception.UrlModelException;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -67,7 +66,7 @@ public class AssetManager {
      * @param uri 除域名外的绝对路径。如：/java-admin/admin/login 或 java-admin/admin/login
      * @return 项目的基本路径。如：admin/login
      */
-    public String ToProjectUri(String uri) throws UrlModelException {
+    public String ToProjectUri(String uri) {
         if (uri.startsWith("/" + this.prefix)) {
             return uri.substring(this.prefix.length() + 2);
         } else if (uri.startsWith(this.prefix)) {

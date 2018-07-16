@@ -38,8 +38,8 @@ Vue.component("mwa-menu", {
         }
     },
     template: '' +
-    '<div>' +
-    '   <mwa-menu-item v-bind:parent-id="menuList.name" v-bind:menu-list="menuList.child" level="0"></mwa-menu-item>' +
+    '<div class="mwa-menu-container">' +
+    '   <mwa-menu-item parent-id="mwa" v-bind:menu-list="menuList.child" level="0"></mwa-menu-item>' +
     '</div>'
 });
 
@@ -76,25 +76,30 @@ Vue.component("mwa-menu-item", {
         };
     },
     mounted: function() {
+        this.HideChild();
     },
     methods: {
-        ShowChild: function() {
-            // 隐藏所有下级的子项
-            $(".mwa-menu-ul-l" + (this.level + 1)).hide();
+        ShowChild: function(event) {
+            let thisId = $(event.target).data("item-id");
+
+            this.HideChild();
             // 显示自己的子项
-            $("ul[data='" + this.menuList.name + "']").show();
+            $("ul[data-parent-id='" + this.parentId + "|" + thisId + "']").show();
+
+            console.debug(this.parentId + "|" + thisId );
         },
 
         HideChild: function() {
-
+            // 隐藏所有下级的子项
+            $(".mwa-menu-ul-l" + (Number(this.level) + 1)).hide();
         }
     },
     template: '' +
     '<ul class="list-group mwa-menu-ul" v-bind:class="\'mwa-menu-ul-l\' + level" v-bind:data-parent-id="parentId">' +
     '   <template v-for="(item, index) in menuList">' +
-    '       <li class="list-group-item">{{item.name}}</li>' +
+    '       <li class="list-group-item" v-on:mouseover="ShowChild" v-bind:data-item-id="item.id">{{item.name}}</li>' +
     '       <template v-if="item.hasOwnProperty(\'child\')">' +
-    '           <mwa-menu-item v-bind:parent-id="parentId + \'|\' +item.name" v-bind:menu-list="item.child" v-bind:level="parseInt(level) + 1"></mwa-menu-item>' +
+    '           <mwa-menu-item v-bind:parent-id="parentId + \'|\' + item.id" v-bind:menu-list="item.child" v-bind:level="Number(level) + 1"></mwa-menu-item>' +
     '       </template>' +
     '   </template>' +
     '</ul>' +
