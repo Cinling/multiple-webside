@@ -51,7 +51,6 @@ public class AdminSystemMonitorController extends BaseController {
 
             // 制空对象，让 jvm 可释放内存
             systemMonitorEntityList.remove(0);
-            systemMonitorEntity = null;
         }
 
         JSONObject retJsonObject = new JSONObject();

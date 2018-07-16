@@ -1,6 +1,6 @@
 package cn.cinling.admin.manager;
 
-import cn.cinling.admin.model.MenuModel;
+import cn.cinling.admin.model.Menu;
 
 public class AuthManager {
     private static AuthManager shareInstance = null;
@@ -18,20 +18,18 @@ public class AuthManager {
     /**
      * 菜单对象
      */
-    private MenuModel menu;
+    private Menu menu;
 
     /**
      * 初始化菜单
      */
     private void InitMenu() {
+        AssetManager a = AssetManager.GetInstance();
+
         // 菜单根节点
-        this.menu = new MenuModel("root", "菜单", "")
-                .AddChild(new MenuModel("sys","系统", "")
-                        .AddChild(new MenuModel("sys-status", "服务器状态", "/admin-system-monitor/"))
-                        .AddChild(new MenuModel("test-1", "测试1", ""))
-                ).AddChild(new MenuModel("test-1", "一级菜单1", "")
-                        .AddChild(new MenuModel("test-1-1", "二级菜单", "")
-                        )
+        this.menu = new Menu("root", "菜单", "")
+                .AddChild(new Menu("sys","系统", "").SetIcon(Menu.ICON_COGS)
+                        .AddChild(new Menu("sys-status", "服务器状态", a.To("/admin-system-monitor/home")))
                 );
     }
 

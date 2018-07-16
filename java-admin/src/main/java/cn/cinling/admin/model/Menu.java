@@ -9,24 +9,34 @@ import java.util.List;
 /**
  * 菜单模块
  */
-public class MenuModel {
+public class Menu {
     private String id;
     private String name;
     private String url;
-    private List<MenuModel> childList = null;
+    private String icon;    // awesome icon 的 class
+    private List<Menu> childList = null;
 
-    public MenuModel(String id, String name, String url) {
+    public Menu(String id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
+        this.icon = "";
     }
 
-    public MenuModel AddChild(MenuModel childMenu) {
+    public Menu AddChild(Menu childMenu) {
         if (this.childList == null) {
             this.childList = new ArrayList<>();
         }
 
         this.childList.add(childMenu);
+        return this;
+    }
+
+    public static final String ICON_COGS = "fas fa-cogs";
+
+    public Menu SetIcon(String icon) {
+        this.icon = icon;
+
         return this;
     }
 
@@ -36,6 +46,7 @@ public class MenuModel {
         o.put("id", this.id);
         o.put("name", this.name);
         o.put("url", this.url);
+        o.put("icon", this.icon);
         if (this.childList != null) {
             o.put("child", this.GetChildJsonArray());
         }
@@ -46,11 +57,12 @@ public class MenuModel {
     private JSONArray GetChildJsonArray() {
         JSONArray a = new JSONArray();
 
-        for(MenuModel menu: this.childList) {
+        for(Menu menu: this.childList) {
             JSONObject o = new JSONObject();
             o.put("id", menu.id);
             o.put("name", menu.name);
             o.put("url", menu.url);
+            o.put("icon", menu.icon);
 
             if (menu.childList != null) {
                 o.put("child", menu.GetChildJsonArray());
