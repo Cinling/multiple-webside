@@ -21,18 +21,18 @@
     <script th:src="${assetManager.PopperJsLink()}"></script>
     <script th:src="${assetManager.BootstrapJsLink()}"></script>
     <script th:src="${assetManager.VueJsLink()}"></script>
-    <script th:src="${assetManager.To('3rd/pro-sidebar-template/assets/js/custom.js')}"></script>
+    <!--<script th:src="${assetManager.To('3rd/pro-sidebar-template/assets/js/custom.js')}"></script>-->
 </header>
 
 <article class="page-wrapper chiller-theme sidebar-bg bg1">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" onclick="ShowMenu()">
         <i class="fas fa-bars"></i>
     </a>
     <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
             <div class="sidebar-brand">
                 <a href="javascript:void(0)">主页</a>
-                <div id="close-sidebar">
+                <div id="close-sidebar" v-on:click="HideMenu">
                     <i class="fas fa-times"></i>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     </li>
                     <template v-for="menu in menuData.child">
                     <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)">
+                        <a href="javascript:void(0)" v-on:click="ToggleSubMenu">
                             <i v-bind:class="(menu.icon === '') ? 'fas fa-server' : menu.icon"></i>
                             <span>{{menu.name}}</span>
                         </a>
@@ -121,7 +121,7 @@
 
                 <a href="#" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-warning notification">3</span>
+                    <!--<span class="badge badge-pill badge-warning notification">3</span>-->
                 </a>
                 <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
                     <div class="notifications-header">
@@ -175,7 +175,7 @@
             <div class="dropdown">
                 <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-envelope"></i>
-                    <span class="badge badge-pill badge-success notification">7</span>
+                    <!--<span class="badge badge-pill badge-success notification">7</span>-->
                 </a>
                 <div class="dropdown-menu messages" aria-labelledby="dropdownMenuMessage">
                     <div class="messages-header">
@@ -300,9 +300,48 @@
                         console.error(err);
                     }
                 });
+            },
+
+            /**
+             * 显示菜单
+             */
+            ShowMenu: function () {
+                $(".page-wrapper").addClass("toggled");
+            },
+
+            /**
+             * 隐藏菜单
+             */
+            HideMenu: function () {
+                $(".page-wrapper").removeClass("toggled");
+            },
+
+            /**
+             * 切换子菜单显示或隐藏
+             * @param event
+             */
+            ToggleSubMenu: function(event) {
+                let thisDom = event.target;
+
+                $(".sidebar-submenu").slideUp(200);
+                if ($(thisDom).parent().hasClass("active")) {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(thisDom).parent().removeClass("active");
+                } else {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(thisDom).next(".sidebar-submenu").slideDown(200);
+                    $(thisDom).parent().addClass("active");
+                }
             }
         }
     });
+
+    /**
+     * 显示菜单。提供给 vue 容器外的标签使用
+     */
+    function ShowMenu() {
+        sidebarVue.ShowMenu();
+    }
 </script>
 
 </body>
