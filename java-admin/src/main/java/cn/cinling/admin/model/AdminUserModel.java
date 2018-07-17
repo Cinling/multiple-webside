@@ -4,15 +4,14 @@ import cn.cinling.admin.config.define.SES;
 import cn.cinling.admin.database.entity.AdminUserEntity;
 import cn.cinling.admin.database.service.admin_user.AdminUserService;
 import cn.cinling.admin.database.service.admin_user.impl.AdminUserServiceImpl;
+import cn.cinling.admin.manager.SessionManager;
 import cn.cinling.admin.model.exception.AdminUserModelException;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 
 /**
  * 用于处理管理员账号的模块
  */
-@Component
 public class AdminUserModel {
 
     private static AdminUserModel shareInstance = null;
@@ -31,8 +30,8 @@ public class AdminUserModel {
      * @return 是否登陆
      */
     public boolean IsLogin() {
-        SessionModel session = SessionModel.GetInstance();
-        Object object = session.Get(SessionModel.KEY_USER_ID, null);
+        SessionManager session = SessionManager.GetInstance();
+        Object object = session.Get(SessionManager.KEY_USER_ID, null);
         if (object == null) {
             return false;
         }
@@ -71,8 +70,7 @@ public class AdminUserModel {
             throw new AdminUserModelException("密码错误", new ApiResponse(ApiResponse.FAIL_PASSWORD_ERROR, ""));
         }
 
-        SessionModel session = SessionModel.GetInstance();
-        session.Set(SessionModel.KEY_USER_ID, adminUserEntity.getId());
+        SessionManager.GetInstance().Set(SessionManager.KEY_USER_ID, adminUserEntity.getId());
     }
 
     /**

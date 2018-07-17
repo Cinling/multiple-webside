@@ -1,0 +1,23 @@
+
+
+.sys-table-pagination-space {
+    width: 50px;
+}
+
+.sys-table-pagination-page-num {
+    display: inline-block;
+    user-select: none;
+    height: 38px;
+    line-height: 38px;
+}
+
+.sys-table-title {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #9acfea;
+}
+
