@@ -1,19 +1,20 @@
+<!--/*@thymesVar id="assetManager" type="cn.cinling.admin.manager.AssetManager"*/-->
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <!--加载除主页外的 css、js 文件-->
+    <header>
+        <link rel="stylesheet" th:href="${assetManager.To('css/component/table.css')}">
+        <script th:src="${assetManager.To('js/component/table.js')}"></script>
+    </header>
 
-<!--加载除主页外的 css、js 文件-->
-<header>
+    <!--主要的显示内容-->
+    <article id="mainVue">
+        <mwa-table></mwa-table>
+    </article>
 
-</header>
-
-<!--主要的显示内容-->
-<article id="mainVue">
-    <section class="title">
-
-    </section>
-</article>
-
-<!--js脚本-->
-<script type="text/javascript">
-    mainVue = new Vue({
-        el: "#mainVue"
-    });
-</script>
+    <!--js脚本-->
+    <script type="text/javascript">
+        mainVue = new Vue({
+            el: "#mainVue"
+        });
+    </script>
+</main>

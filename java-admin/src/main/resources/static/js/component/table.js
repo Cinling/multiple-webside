@@ -1,5 +1,5 @@
 
-Vue.component('sys-table', {
+Vue.component('mwa-table', {
     /**
      * 可通过标签赋值的属性
      */
@@ -101,7 +101,7 @@ Vue.component('sys-table', {
                 count: 0,   // 总数据条数
                 page: 1,    // 当前的页数
                 rows: 10    // 每页显示的数据条数
-            },
+            }
         }
     },
 
