@@ -28,9 +28,11 @@
 </header>
 
 <article class="page-wrapper chiller-theme sidebar-bg bg1">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" onclick="ShowMenu()">
-        <i class="fas fa-bars"></i>
-    </a>
+    <div class="i-nav" onmouseover="HideMenu()">
+        <section onclick="ShowMenu()">
+            <i class="fas fa-bars" ></i>
+        </section>
+    </div>
     <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
             <div class="sidebar-brand">
@@ -233,7 +235,7 @@
                 </div>
             </div>
             <div class="dropdown">
-                <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a href="#" class="" id="dropdownMenuMessage2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog"></i>
                     <span class="badge-sonar"></span>
                 </a>
@@ -251,7 +253,7 @@
         </div>
     </nav>
     <!-- sidebar-wrapper  -->
-    <main class="page-content">
+    <main class="page-content" onmouseover="HideMenu()">
         <div class="container-fluid">
 
         </div>
@@ -343,7 +345,18 @@
      * 显示菜单。提供给 vue 容器外的标签使用
      */
     function ShowMenu() {
-        sidebarVue.ShowMenu();
+        setTimeout(function(){
+            sidebarVue.ShowMenu();
+        });
+    }
+
+    /**
+     * 隐藏菜单
+     */
+    function HideMenu() {
+        setTimeout(function(){
+            sidebarVue.HideMenu();
+        });
     }
 </script>
 

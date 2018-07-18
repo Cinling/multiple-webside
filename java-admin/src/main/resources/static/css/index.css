@@ -44,3 +44,26 @@ html, body, article {
     -ms-border-radius: 2px;
     border-radius: 2px;
 }
+
+.i-nav {
+    display: inline-flex;
+    width: 100%;
+    height: 50px;
+
+    color: #bdbdbd;
+    background-color: #343a40;
+
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.i-nav > section {
+    padding: 0 20px;
+    font-size: 24px;
+}
+
+.i-nav > section:hover {
+    cursor: pointer;
+    color: #fff;
+}
