@@ -33,10 +33,10 @@ spring:
 
 mybatis:
   mapper-locations: classpath:config/mybatis/mapper/*.xml
-  type-aliases-package: cn.cinling.admin.database.entity
+  type-aliases-package: cn.cinling.javacommon.database.entity
 
 mapper:
-  mappers:  cn.cinling.admin.database.mapper
+  mappers:  cn.cinling.javacommon.database.mapper
   not-empty: false
   identity: MYSQL
 

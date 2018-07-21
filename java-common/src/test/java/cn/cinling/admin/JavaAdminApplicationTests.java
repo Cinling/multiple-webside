@@ -1,4 +1,4 @@
-package cn.cinling.admin;
+package cn.cinling.javacommon;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
