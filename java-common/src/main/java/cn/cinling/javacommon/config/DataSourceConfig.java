@@ -1,16 +1,11 @@
 package cn.cinling.javacommon.config;
 
-//import com.github.pagehelper.PageInterceptor;
-//import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,30 +19,24 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
+    @Value("${mybatis.type-aliases-package}")
+    private String typeAliasesPackage;
 
-    private static Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
-
-    @Autowired
-    private Environment env;
-
-//    @Autowired
-//    private PageInterceptor pageInterceptor;
+    @Value("${mybatis.mapper-locations}")
+    private String mapperLocations;
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
-        fb.setDataSource(dataSource);
-//        //该配置非常的重要，如果不将PageInterceptor设置到SqlSessionFactoryBean中，导致分页失效
-//        fb.setPlugins(new Interceptor[]{pageInterceptor});
-        fb.setTypeAliasesPackage(env.getProperty("mybatis.type-aliases-package"));
-        fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapper-locations")));
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
 
         // JAVA 驼峰式命名支持。如：create_time 会映射为 createTime
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
+        sqlSessionFactoryBean.setConfiguration(configuration);
 
-        fb.setConfiguration(configuration);
-
-        return fb.getObject();
+        return sqlSessionFactoryBean.getObject();
     }
 }

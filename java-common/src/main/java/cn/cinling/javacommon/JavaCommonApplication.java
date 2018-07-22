@@ -8,14 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class JavaCommonApplication extends SpringBootServletInitializer {
-
-    /**
-     * tomcat 启动所需的方法
-     */
-    public SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(JavaCommonApplication.class);
-    }
+public class JavaCommonApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JavaCommonApplication.class, args);
