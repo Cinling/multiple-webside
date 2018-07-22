@@ -1,9 +1,12 @@
 package cn.cinling.javacommon.database.mapper;
 
 import cn.cinling.javacommon.database.entity.AdminUserEntity;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
 
+@Mapper
 public interface AdminUserMapper {
     /**
      * 插入一条数据

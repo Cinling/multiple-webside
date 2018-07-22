@@ -4,7 +4,7 @@
 //import cn.cinling.javacommon.database.entity.AdminUserEntity;
 //import cn.cinling.javacommon.database.service.admin_user.AdminUserService;
 //import cn.cinling.javacommon.database.service.admin_user.impl.AdminUserServiceImpl;
-//import cn.cinling.javacommon.manager.SessionManager;
+//import cn.cinling.javaadmin.manager.SessionManager;
 //import cn.cinling.javacommon.model.exception.AdminUserModelException;
 //
 //import javax.servlet.http.HttpSession;

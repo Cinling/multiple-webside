@@ -5,7 +5,7 @@
 
     <!--<groupId>cn.cinling</groupId>-->
     <artifactId>java-common</artifactId>
-    <version>${mwa.version}</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>java-common</name>
@@ -49,6 +49,7 @@
         <!--<dependency>-->
             <!--<groupId>org.liquibase</groupId>-->
             <!--<artifactId>liquibase-core</artifactId>-->
+            <!--<version>${luqiubase.version}</version>-->
         <!--</dependency>-->
 
         <!-- alibaba的druid数据库连接池 -->
@@ -72,6 +73,25 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--liquibase 脚本配置-->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.0.5</version>
+                <configuration>
+                    <propertyFileWillOverride>true</propertyFileWillOverride>
+                    <propertyFile>classpath:/config/liquibase/master.xml</propertyFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
