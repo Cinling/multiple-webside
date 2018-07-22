@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="java-admin with java-common:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/java_admin_with_java_common_war_exploded</output-path>
+  <artifact type="exploded-war" name="admin:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/admin_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">

@@ -1,4 +1,4 @@
-package cn.cinling.javacommon.model.exception;
+package cn.cinling.javaadmin.model.exception;
 
 public class UrlModelException extends Exception {
 

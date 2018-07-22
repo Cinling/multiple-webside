@@ -1,36 +1,28 @@
-//package cn.cinling.javacommon.http.controller;
-//
-//import cn.cinling.javacommon.database.entity.AdminSystemMonitorEntity;
-//import cn.cinling.javacommon.database.service.admin_system_monitor.AdminSystemMonitorService;
-//import net.minidev.json.JSONArray;
-//import net.minidev.json.JSONObject;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.ResponseBody;
-//
-//import java.util.List;
-//
-///**
-// * 系统监控的控制器
-// */
-//@RequestMapping("/admin-system-monitor")
-//@Controller
-//public class AdminSystemMonitorController extends BaseController {
+package cn.cinling.javaadmin.http.controller;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 系统监控的控制器
+ */
+@RequestMapping("/admin-system-monitor")
+@Controller
+public class AdminSystemMonitorController extends BaseController {
 //    @Autowired
 //    AdminSystemMonitorService systemMonitorService;
-//
-//    @RequestMapping("/")
-//    public String Home() {
-//        return "admin-system-monitor/home";
-//    }
-//
-//    @RequestMapping("/home")
-//    public String HomeWithSuffix() {
-//        return this.Home();
-//    }
-//
+
+    @RequestMapping("/")
+    public String Home() {
+        return "admin-system-monitor/home";
+    }
+
+    @RequestMapping("/home")
+    public String HomeWithSuffix() {
+        return this.Home();
+    }
+
 //    @ResponseBody
 //    @PostMapping("/get-system-info")
 //    public String GetSystemInfo() {
@@ -59,4 +51,4 @@
 //
 //        return retJsonObject.toJSONString();
 //    }
-//}
+}

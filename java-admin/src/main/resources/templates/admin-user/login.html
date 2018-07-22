@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--/*@thymesVar id="assetManager" type="cn.cinling.admin.manager.AssetManager"*/-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>登陆页面</title>
+    <link rel="stylesheet" th:href="${assetManager.BootstrapCssLink()}">
+    <link rel="stylesheet" th:href="${assetManager.To('/css/admin-user/login.css')}" />
+</head>
+<body>
+<header></header>
+
+<article id="mainVue" class="admin-login-container">
+    <section class="admin-login-panel">
+        <input id="account" class="form-control admin-login-panel-item" type="text" placeholder="账号">
+        <input id="password" class="form-control admin-login-panel-item" type="password" placeholder="密码">
+        <button type="button" class="btn btn-primary admin-login-panel-item" v-on:click="Login">登录</button>
+    </section>
+</article>
+
+<footer></footer>
+
+<script th:src="${assetManager.JqueryJsLink()}"></script>
+<script th:src="${assetManager.PopperJsLink()}"></script>
+<script th:src="${assetManager.BootstrapJsLink()}"></script>
+<script th:src="${assetManager.VueJsLink()}"></script>
+<script th:src="${assetManager.To('/js/encryption.js')}"></script>
+
+<script type="text/javascript">
+    mainVue = new Vue({
+        el: "#mainVue",
+        methods: {
+            Login: function() {
+                let account = $("#account").val();
+                let password = MD5($("#password").val());
+
+                $.ajax({
+                    url: "[[${assetManager.To('admin-user/login')}]]",
+                    data: {account: account, password: password},
+                    method: "post",
+                    dataType: "json",
+                    success: function(json) {
+                        if (json.code > 0) {
+                            window.location = "[[${assetManager.To('index')}]]";
+                        } else {
+                            console.error("登录失败");
+                            alert("登录失败");
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
