@@ -1,10 +1,9 @@
 package cn.cinling.javaadmin.http.controller;
 
-import cn.cinling.javaadmin.model.AdminUserModel;
+import cn.cinling.javaadmin.manager.AuthManager;
+import cn.cinling.javaadmin.manager.exception.AuthManagerException;
 import cn.cinling.javaadmin.model.ApiResponse;
-import cn.cinling.javaadmin.model.exception.AdminUserModelException;
 import cn.cinling.javacommon.database.entity.AdminUserEntity;
-import cn.cinling.javacommon.database.service.admin_user.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AdminUserController extends BaseController {
 
     @Autowired
-    private AdminUserService adminUserService;
+    private AuthManager authManager;
 
     /**
      * 管理员查看的页面
@@ -40,7 +39,7 @@ public class AdminUserController extends BaseController {
     @GetMapping("init-page")
     public String InitAdminUserPage() {
         // 如果已经创建了管理员账号，则跳转到登陆页面
-        if (AdminUserModel.GetInstance().IsInitAdminUserAccount()) {
+        if (authManager.IsInitAdminUserAccount()) {
             return this.LoginPage();
         }
         return "admin-user/init";
@@ -65,28 +64,19 @@ public class AdminUserController extends BaseController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (AdminUserModel.GetInstance().IsInitAdminUserAccount()) {
-            return new ApiResponse().ReturnJson(ApiResponse.FAIL_ADMIN_USER_WAS_EXISTS);
+        if (authManager.IsInitAdminUserAccount()) {
+            return new ApiResponse(ApiResponse.FAIL_ADMIN_USER_WAS_EXISTS).ReturnJson();
         }
 
         if (username.isEmpty() || password.isEmpty()) {
-            return new ApiResponse().ReturnJson(ApiResponse.FAIL_EMPTY_ACCOUNT_OR_PASSWORD);
+            return new ApiResponse(ApiResponse.FAIL_EMPTY_ACCOUNT_OR_PASSWORD).ReturnJson();
         }
 
         int createTime = (int) (System.currentTimeMillis() / 1000);
         AdminUserEntity adminUserEntity = new AdminUserEntity(username, password, "系统管理员", createTime);
-        adminUserService.AddAdminUser(adminUserEntity);
+        authManager.AddAdminUser(adminUserEntity);
 
-        return new ApiResponse().ReturnJson(ApiResponse.SUCC_SUCC);
-    }
-
-    /**
-     * @return 测试
-     */
-    @ResponseBody
-    @RequestMapping("test")
-    public String Test() {
-        return String.valueOf(adminUserService.GetCount());
+        return new ApiResponse(ApiResponse.SUCC_SUCC).ReturnJson();
     }
 
     /**
@@ -101,9 +91,9 @@ public class AdminUserController extends BaseController {
         String password = request.getParameter("password");
 
         try {
-            AdminUserModel.GetInstance().Login(account, password);
-        } catch (AdminUserModelException e) {
-            return e.GetApiResponse().ReturnJson();
+            authManager.Login(account, password);
+        } catch (AuthManagerException e) {
+            return e.getApiResponse().ReturnJson();
         }
 
         return new ApiResponse(ApiResponse.SUCC_LOGIN).ReturnJson();

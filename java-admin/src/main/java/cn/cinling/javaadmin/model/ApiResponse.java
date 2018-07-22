@@ -5,18 +5,6 @@ import java.util.Map;
 
 public class ApiResponse {
 
-    public ApiResponse() {
-    }
-
-    public ApiResponse(int code) {
-        this.code = code;
-    }
-
-    public ApiResponse(int code, String data) {
-        this.code = code;
-        this.data = data;
-    }
-
     public static final int SUCC_SUCC = 1;      // 成功
     public static final int SUCC_LOGIN = 2;     // 登录成功
 
@@ -30,31 +18,40 @@ public class ApiResponse {
     /**
      * 返回的状态码
      */
-    private int code = 0;
+    private int code;
 
     /**
      * 返回的数据
      */
     private String data = "";
 
-    Map<Integer, String> codeMsgMap = null;
+    public ApiResponse(int code) {
+        this.code = code;
+    }
+
+    public ApiResponse(int code, String data) {
+        this.code = code;
+        this.data = data;
+    }
+
+    private static Map<Integer, String> codeMsgMap = null;
     /**
      * @return code 对应 msg 的 map 集合
      */
     private Map<Integer, String> GetCodeMsgMap() {
-        if (this.codeMsgMap == null) {
-            this.codeMsgMap = new HashMap<>();
+        if (ApiResponse.codeMsgMap == null) {
+            ApiResponse.codeMsgMap = new HashMap<>();
 
-            this.codeMsgMap.put(SUCC_SUCC, "success");
-            this.codeMsgMap.put(SUCC_LOGIN, "login success");
+            ApiResponse.codeMsgMap.put(SUCC_SUCC, "success");
+            ApiResponse.codeMsgMap.put(SUCC_LOGIN, "login success");
 
-            this.codeMsgMap.put(FAIL_FAIL, "fail");
-            this.codeMsgMap.put(FAIL_EMPTY_ACCOUNT_OR_PASSWORD, "username or password is empty");
-            this.codeMsgMap.put(FAIL_ADMIN_USER_WAS_EXISTS, "admin user was exists");
-            this.codeMsgMap.put(FAIL_USER_NOT_EXISTS, "user not exists");
-            this.codeMsgMap.put(FAIL_PASSWORD_ERROR, "password error");
+            ApiResponse.codeMsgMap.put(FAIL_FAIL, "fail");
+            ApiResponse.codeMsgMap.put(FAIL_EMPTY_ACCOUNT_OR_PASSWORD, "username or password is empty");
+            ApiResponse.codeMsgMap.put(FAIL_ADMIN_USER_WAS_EXISTS, "admin user was exists");
+            ApiResponse.codeMsgMap.put(FAIL_USER_NOT_EXISTS, "user not exists");
+            ApiResponse.codeMsgMap.put(FAIL_PASSWORD_ERROR, "password error");
         }
-        return this.codeMsgMap;
+        return ApiResponse.codeMsgMap;
     }
 
     /**
@@ -109,14 +106,4 @@ public class ApiResponse {
 //        this.data = JSONObject.toJSONString(map);
 //        return this.ReturnJson();
 //    }
-
-    /**
-     *
-     * @param code 状态吗
-     * @return 消息字符串
-     */
-    public String ReturnJson(int code) {
-        this.code = code;
-        return this.ReturnJson();
-    }
 }

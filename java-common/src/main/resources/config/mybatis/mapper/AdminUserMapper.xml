@@ -16,7 +16,7 @@
         FROM admin_user
     </select>
 
-    <select id="SearchByAccount" resultType="cn.cinling.javacommon.database.entity.AdminUserEntity">
+    <select id="SelectByAccount" resultType="cn.cinling.javacommon.database.entity.AdminUserEntity">
         SELECT * FROM admin_user WHERE account=#{account}
     </select>
 

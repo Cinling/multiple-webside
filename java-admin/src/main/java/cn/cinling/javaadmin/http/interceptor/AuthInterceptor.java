@@ -1,7 +1,9 @@
 package cn.cinling.javaadmin.http.interceptor;
 
 import cn.cinling.javaadmin.manager.AssetManager;
-import cn.cinling.javaadmin.model.AdminUserModel;
+import cn.cinling.javaadmin.manager.AuthManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 
+@Component
 public class AuthInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private AuthManager authManager;
 
     /**
      * 在请求处理之前进行调用（Controller方法调用之前
@@ -34,13 +40,11 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        AdminUserModel adminUserModel = AdminUserModel.GetInstance();
-
         // 如果没有登陆，则判断是否已经初始化管理员账号
-        if (!adminUserModel.IsLogin()) {
+        if (!authManager.IsLogin()) {
 
             // 判断是否需要进行初始化管理员账号
-            if (!adminUserModel.IsInitAdminUserAccount()) {
+            if (!authManager.IsInitAdminUserAccount()) {
 
                 // 如果当前页面不是合法的，则跳转到初始化页面
                 if (!this.IsInitAdminUserURI(uri)) {

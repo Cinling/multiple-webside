@@ -1,7 +1,8 @@
 package cn.cinling.javaadmin.model;
 
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,35 +41,35 @@ public class Menu {
         return this;
     }
 
-    public JSONObject ToJsonObject() {
-        JSONObject o = new JSONObject();
+    public ObjectNode ToJsonObject() {
+        ObjectNode o = JsonNodeFactory.instance.objectNode();
 
         o.put("id", this.id);
         o.put("name", this.name);
         o.put("url", this.url);
         o.put("icon", this.icon);
         if (this.childList != null) {
-            o.put("child", this.GetChildJsonArray());
+            o.putPOJO("child", this.GetChildJsonArray());
         }
 
         return o;
     }
 
-    private JSONArray GetChildJsonArray() {
-        JSONArray a = new JSONArray();
+    private ArrayNode GetChildJsonArray() {
+        ArrayNode a = JsonNodeFactory.instance.arrayNode();
 
         for(Menu menu: this.childList) {
-            JSONObject o = new JSONObject();
+            ObjectNode o = JsonNodeFactory.instance.objectNode();
             o.put("id", menu.id);
             o.put("name", menu.name);
             o.put("url", menu.url);
             o.put("icon", menu.icon);
 
             if (menu.childList != null) {
-                o.put("child", menu.GetChildJsonArray());
+                o.putPOJO("child", menu.GetChildJsonArray());
             }
 
-            a.appendElement(o);
+            a.add(o);
         }
 
         return a;

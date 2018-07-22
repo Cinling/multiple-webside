@@ -28,8 +28,9 @@
         <druid.version>1.1.0</druid.version>
         <junit.version>4.12</junit.version>
         <luqiubase.version>3.6.2</luqiubase.version>
-        <fastjson.version>1.2.47</fastjson.version>
+        <fastjson.version>1.2.30</fastjson.version>
         <jsonSmart.version>2.3</jsonSmart.version>
+        <orgJson.version>20180130</orgJson.version>
     </properties>
 
     <modules>
@@ -119,11 +120,11 @@
             </dependency>
 
             <!--json库-->
-            <dependency>
-                <groupId>net.minidev</groupId>
-                <artifactId>json-smart</artifactId>
-                <version>${jsonSmart.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>net.minidev</groupId>-->
+                <!--<artifactId>json-smart</artifactId>-->
+                <!--<version>${jsonSmart.version}</version>-->
+            <!--</dependency>-->
         </dependencies>
     </dependencyManagement>
 

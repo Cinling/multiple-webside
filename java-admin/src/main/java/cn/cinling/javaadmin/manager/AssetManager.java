@@ -1,14 +1,16 @@
 package cn.cinling.javaadmin.manager;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
+@Component
 public class AssetManager {
     private static AssetManager shareInstance = null;
     private AssetManager() {
-        this.prefix = "java-admin";
+        this.prefix = "admin";
     }
     public static  AssetManager GetInstance() {
         if (AssetManager.shareInstance == null) {

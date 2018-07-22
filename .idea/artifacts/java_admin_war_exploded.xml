@@ -60,9 +60,6 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.46" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.1.0" />
           <element id="library" level="project" name="Maven: junit:junit:4.12" />
-          <element id="library" level="project" name="Maven: net.minidev:json-smart:2.3" />
-          <element id="library" level="project" name="Maven: net.minidev:accessors-smart:1.2" />
-          <element id="library" level="project" name="Maven: org.ow2.asm:asm:5.0.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">

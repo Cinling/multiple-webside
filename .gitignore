@@ -14,6 +14,7 @@
 /.idea/*.xml
 /.idea/libraries
 /.idea/dictionaries
+/.idea/inspectionProfiles
 *.iws
 *.iml
 *.ipr
