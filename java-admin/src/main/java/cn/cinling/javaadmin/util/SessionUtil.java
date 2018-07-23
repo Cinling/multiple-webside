@@ -1,4 +1,4 @@
-package cn.cinling.javaadmin.utils;
+package cn.cinling.javaadmin.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

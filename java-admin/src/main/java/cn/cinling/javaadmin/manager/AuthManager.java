@@ -3,7 +3,7 @@ package cn.cinling.javaadmin.manager;
 import cn.cinling.javaadmin.manager.exception.AuthManagerException;
 import cn.cinling.javaadmin.model.ApiResponse;
 import cn.cinling.javaadmin.model.Menu;
-import cn.cinling.javaadmin.utils.SessionUtil;
+import cn.cinling.javaadmin.util.SessionUtil;
 import cn.cinling.javacommon.database.entity.AdminUserEntity;
 import cn.cinling.javacommon.database.mapper.AdminUserMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;

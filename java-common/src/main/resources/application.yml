@@ -8,7 +8,7 @@ spring:
     # 使用druid数据源
     driver-class-name: com.mysql.jdbc.Driver
   profiles:
-    include: classpath:/application-admin.yml
+    include: classpath:/application-admin.yml, classpath:/application-wxapi.yml
 
 mybatis:
   mapper-locations: classpath:config/mybatis/mapper/*.xml
