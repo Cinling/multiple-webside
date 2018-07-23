@@ -11,10 +11,7 @@
 .sts4-cache
 
 ### IntelliJ IDEA ###
-/.idea/*.xml
-/.idea/libraries
-/.idea/dictionaries
-/.idea/inspectionProfiles
+.idea
 *.iws
 *.iml
 *.ipr
