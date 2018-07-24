@@ -36,6 +36,7 @@
     <modules>
         <module>java-common</module>
         <module>java-admin</module>
+        <module>java-wxapi</module>
     </modules>
 
     <dependencyManagement>

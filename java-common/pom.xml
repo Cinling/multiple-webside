@@ -46,11 +46,11 @@
 
         <!-- 数据库版本管理工具 -->
         <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
-        <!--<dependency>-->
-            <!--<groupId>org.liquibase</groupId>-->
-            <!--<artifactId>liquibase-core</artifactId>-->
-            <!--<version>${luqiubase.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${luqiubase.version}</version>
+        </dependency>
 
         <!-- alibaba的druid数据库连接池 -->
         <dependency>

@@ -14,6 +14,10 @@ mybatis:
   mapper-locations: classpath:config/mybatis/mapper/*.xml
   type-aliases-package: cn.cinling.javacommon.database.entity
 
+#liquibase:
+#  enabled: true
+#  change-log: classpath:/config/liquibase/master.xml
+
 
 
 

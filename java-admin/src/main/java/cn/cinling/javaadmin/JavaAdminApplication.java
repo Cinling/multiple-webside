@@ -5,9 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan("cn.cinling.javacommon.database.mapper")
+@MapperScan("cn.cinling.javacommon.database.mapper") // 扫描数据库的 mapper 实例
+@ComponentScan("cn.cinling.javacommon.config")  // 加载 common 的配置
 public class JavaAdminApplication extends SpringBootServletInitializer {
 
     /**
