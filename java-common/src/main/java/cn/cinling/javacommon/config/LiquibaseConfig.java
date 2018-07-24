@@ -13,12 +13,12 @@ public class LiquibaseConfig {
     @Bean
     @Primary
     public SpringLiquibase liquibase(DataSource dataSource) {
-        System.out.println("liquibase inti ----------------------------------------");
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
         liquibase.setChangeLog("classpath:/config/liquibase/master.xml");
         liquibase.setContexts("development,test,production");
         liquibase.setShouldRun(true);
+
         return liquibase;
     }
 }

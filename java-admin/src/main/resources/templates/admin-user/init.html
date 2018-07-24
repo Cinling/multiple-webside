@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
-<!--/*@thymesVar id="assetManager" type="cn.cinling.admin.manager.AssetManager"*/-->
+<!--/*@thymesVar id="url" type="cn.cinling.javaadmin.util.UrlUtil"*/-->
 <head>
     <meta charset="UTF-8">
     <title>账号初始化</title>
-    <link rel="stylesheet" th:href="${assetManager.BootstrapCssLink()}">
-    <link rel="stylesheet" th:href="${assetManager.To('/css/admin-user/login.css')}" />
-    <link rel="stylesheet" th:href="${assetManager.To('/css/admin-user/init.css')}" />
+    <link rel="stylesheet" th:href="${url.BootstrapCssLink()}">
+    <link rel="stylesheet" th:href="${url.To('/css/admin-user/login.css')}" />
+    <link rel="stylesheet" th:href="${url.To('/css/admin-user/init.css')}" />
 </head>
 <body>
 <div id="mainVue">
@@ -21,11 +21,11 @@
     </div>
 </div>
 
-<script th:src="${assetManager.JqueryJsLink()}"></script>
-<script th:src="${assetManager.PopperJsLink()}"></script>
-<script th:src="${assetManager.BootstrapJsLink()}"></script>
-<script th:src="${assetManager.VueJsLink()}"></script>
-<script th:src="${assetManager.To('/js/encryption.js')}"></script>
+<script th:src="${url.JqueryJsLink()}"></script>
+<script th:src="${url.PopperJsLink()}"></script>
+<script th:src="${url.BootstrapJsLink()}"></script>
+<script th:src="${url.VueJsLink()}"></script>
+<script th:src="${url.To('/js/encryption.js')}"></script>
 
 
 <script type="text/javascript">
@@ -59,7 +59,7 @@
                 password = MD5(password);
 
                 $.ajax({
-                    url: "[[${assetManager.To('admin-user/init-admin-user')}]]",
+                    url: "[[${url.To('admin-user/init-admin-user')}]]",
                     data: {"username": username, "password":password},
                     method: "post",
                     dataType: "json",

@@ -16,8 +16,8 @@ import org.springframework.web.servlet.resource.VersionResourceResolver;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
-    private final AuthInterceptor authInterceptor;
-    private final InjectionInterceptor injectionInterceptor;
+    private AuthInterceptor authInterceptor;
+    private InjectionInterceptor injectionInterceptor;
 
     @Autowired
     public WebMvcConfig(AuthInterceptor authInterceptor, InjectionInterceptor injectionInterceptor) {
@@ -32,10 +32,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加权限拦截器
-        registry.addInterceptor(authInterceptor).addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
+        registry.addInterceptor(this.authInterceptor).addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
 
         // 添加对象注入器
-        registry.addInterceptor(injectionInterceptor).addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
+        registry.addInterceptor(this.injectionInterceptor).addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
 
         super.addInterceptors(registry);
     }

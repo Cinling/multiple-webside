@@ -20,8 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "admin-user")
 public class AdminUserController extends BaseController {
 
+    private final AuthManager authManager;
+
     @Autowired
-    private AuthManager authManager;
+    public AdminUserController(AuthManager authManager) {
+        this.authManager = authManager;
+    }
 
     /**
      * 管理员查看的页面

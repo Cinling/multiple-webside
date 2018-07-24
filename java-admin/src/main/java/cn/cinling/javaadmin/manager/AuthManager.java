@@ -4,6 +4,7 @@ import cn.cinling.javaadmin.manager.exception.AuthManagerException;
 import cn.cinling.javaadmin.model.ApiResponse;
 import cn.cinling.javaadmin.model.Menu;
 import cn.cinling.javaadmin.util.SessionUtil;
+import cn.cinling.javaadmin.util.UrlUtil;
 import cn.cinling.javacommon.database.entity.AdminUserEntity;
 import cn.cinling.javacommon.database.mapper.AdminUserMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,12 +15,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthManager extends BaseManager {
 
-    @Autowired
-    private AdminUserMapper adminUserMapper;
+    private final UrlUtil urlUtil;
+    private final AdminUserMapper adminUserMapper;
 
-    public AuthManager() {
+
+    private Menu menu;  // 菜单对象
+
+    @Autowired
+    public AuthManager(UrlUtil urlUtil, AdminUserMapper adminUserMapper) {
+        this.urlUtil = urlUtil;
+        this.adminUserMapper = adminUserMapper;
+
         this.InitMenu();
     }
+
 
     /**
      * 添加管理员账号
@@ -33,7 +42,6 @@ public class AuthManager extends BaseManager {
      */
     public String GetMenuJsonStr() {
         ObjectMapper mapper = new ObjectMapper();
-
         String menuStr = "{}";
 
         try {
@@ -45,20 +53,15 @@ public class AuthManager extends BaseManager {
         return menuStr;
     }
 
-    /**
-     * 菜单对象
-     */
-    private Menu menu;
+
     /**
      * 初始化菜单
      */
     private void InitMenu() {
-        AssetManager a = AssetManager.GetInstance();
-
         // 菜单根节点
         this.menu = new Menu("root", "菜单", "")
                 .AddChild(new Menu("sys","系统", "").SetIcon(Menu.ICON_COGS)
-                        .AddChild(new Menu("sys-status", "服务器状态", a.To("/admin-system-monitor/home")))
+                        .AddChild(new Menu("sys-status", "服务器状态", this.urlUtil.To("/admin-system-monitor/home")))
                 );
     }
 

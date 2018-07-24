@@ -1,7 +1,8 @@
 package cn.cinling.javaadmin.http.interceptor;
 
 
-import cn.cinling.javaadmin.manager.AssetManager;
+import cn.cinling.javaadmin.util.UrlUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class InjectionInterceptor implements HandlerInterceptor {
 
+    private final UrlUtil urlUtil;
+
+    @Autowired
+    public InjectionInterceptor(UrlUtil urlUtil) {
+        this.urlUtil = urlUtil;
+    }
 
     /**
      * 在请求处理之前进行调用（Controller方法调用之前
@@ -36,7 +43,7 @@ public class InjectionInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         if (modelAndView != null) {
-            modelAndView.addObject("assetManager", AssetManager.GetInstance());
+            modelAndView.addObject("url", this.urlUtil);
         }
     }
 

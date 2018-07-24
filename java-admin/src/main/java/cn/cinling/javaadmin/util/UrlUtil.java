@@ -1,5 +1,6 @@
-package cn.cinling.javaadmin.manager;
+package cn.cinling.javaadmin.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -7,23 +8,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 @Component
-public class AssetManager {
-    private static AssetManager shareInstance = null;
-    private AssetManager() {
-        this.prefix = "admin";
-    }
-    public static  AssetManager GetInstance() {
-        if (AssetManager.shareInstance == null) {
-            AssetManager.shareInstance = new AssetManager();
-        }
-        return AssetManager.shareInstance;
-    }
-
-
+public class UrlUtil {
     /**
      * web访问路径的前缀
      */
     private String prefix;
+
+    @Autowired
+    public UrlUtil() {
+        this.prefix = "admin";
+    }
 
     /**
      * @param projectUri 目标相对路径。 如：admin/login
