@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
-<!--/*@thymesVar id="url" type="cn.cinling.javaadmin.util.UrlUtil"*/-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>登陆页面</title>
-    <link rel="stylesheet" th:href="${url.BootstrapCssLink()}">
-    <link rel="stylesheet" th:href="${url.To('/css/admin-user/login.css')}" />
+    <link rel="stylesheet" th:href="${@urlUtil.BootstrapCssLink()}">
+    <link rel="stylesheet" th:href="${@urlUtil.To('/css/admin-user/login.css')}" />
 </head>
 <body>
 <header></header>
@@ -21,11 +20,11 @@
 
 <footer></footer>
 
-<script th:src="${url.JqueryJsLink()}"></script>
-<script th:src="${url.PopperJsLink()}"></script>
-<script th:src="${url.BootstrapJsLink()}"></script>
-<script th:src="${url.VueJsLink()}"></script>
-<script th:src="${url.To('/js/encryption.js')}"></script>
+<script th:src="${@urlUtil.JqueryJsLink()}"></script>
+<script th:src="${@urlUtil.PopperJsLink()}"></script>
+<script th:src="${@urlUtil.BootstrapJsLink()}"></script>
+<script th:src="${@urlUtil.VueJsLink()}"></script>
+<script th:src="${@urlUtil.To('/js/encryption.js')}"></script>
 
 <script type="text/javascript">
     mainVue = new Vue({
@@ -36,13 +35,13 @@
                 let password = MD5($("#password").val());
 
                 $.ajax({
-                    url: "[[${url.To('admin-user/login')}]]",
+                    url: "[[${@urlUtil.To('admin-user/login')}]]",
                     data: {account: account, password: password},
                     method: "post",
                     dataType: "json",
                     success: function(json) {
                         if (json.code > 0) {
-                            window.location = "[[${url.To('index')}]]";
+                            window.location = "[[${@urlUtil.To('index')}]]";
                         } else {
                             console.error("登录失败");
                             alert("登录失败");

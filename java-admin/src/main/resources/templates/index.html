@@ -3,7 +3,6 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
-<!--/*@thymesVar id="url" type="cn.cinling.javaadmin.util.UrlUtil"*/-->
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -11,20 +10,20 @@
     <meta name="HandheldFriendly" content="true">
     <title>Title</title>
 
-    <link rel="stylesheet" th:href="${url.BootstrapCssLink()}">
-    <link rel="stylesheet" th:href="${url.AwesomeCssLink()}">
-    <link rel="stylesheet" th:href="${url.To('3rd/pro-sidebar-template/assets/css/custom.css')}">
-    <link rel="stylesheet" th:href="${url.To('3rd/pro-sidebar-template/assets/css/custom-themes.css')}">
-    <link rel="stylesheet" th:href="${url.To('css/index.css')}">
+    <link rel="stylesheet" th:href="${@urlUtil.BootstrapCssLink()}">
+    <link rel="stylesheet" th:href="${@urlUtil.AwesomeCssLink()}">
+    <link rel="stylesheet" th:href="${@urlUtil.To('3rd/pro-sidebar-template/assets/css/custom.css')}">
+    <link rel="stylesheet" th:href="${@urlUtil.To('3rd/pro-sidebar-template/assets/css/custom-themes.css')}">
+    <link rel="stylesheet" th:href="${@urlUtil.To('css/index.css')}">
 
 </head>
 <body>
 <header>
-    <script th:src="${url.JqueryJsLink()}"></script>
-    <script th:src="${url.PopperJsLink()}"></script>
-    <script th:src="${url.BootstrapJsLink()}"></script>
-    <script th:src="${url.VueJsLink()}"></script>
-    <!--<script th:src="${url.To('3rd/pro-sidebar-template/assets/js/custom.js')}"></script>-->
+    <script th:src="${@urlUtil.JqueryJsLink()}"></script>
+    <script th:src="${@urlUtil.PopperJsLink()}"></script>
+    <script th:src="${@urlUtil.BootstrapJsLink()}"></script>
+    <script th:src="${@urlUtil.VueJsLink()}"></script>
+    <!--<script th:src="${@urlUtil.To('3rd/pro-sidebar-template/assets/js/custom.js')}"></script>-->
 </header>
 
 <article class="page-wrapper chiller-theme sidebar-bg bg1">
@@ -254,9 +253,7 @@
     </nav>
     <!-- sidebar-wrapper  -->
     <main class="page-content" onmouseover="HideMenu()">
-        <div class="container-fluid">
 
-        </div>
     </main>
     <!-- page-content" -->
 </article>
@@ -279,7 +276,7 @@
         methods: {
             RequestMenuData: function() {
                 $.ajax({
-                    url: "[[${url.To('/home/get-menu')}]]",
+                    url: "[[${@urlUtil.To('/home/get-menu')}]]",
                     method: "post",
                     dataType: "json",
                     success: function(json) {

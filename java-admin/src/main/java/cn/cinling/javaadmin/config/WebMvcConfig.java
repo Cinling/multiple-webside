@@ -1,7 +1,6 @@
 package cn.cinling.javaadmin.config;
 
 import cn.cinling.javaadmin.http.interceptor.AuthInterceptor;
-import cn.cinling.javaadmin.http.interceptor.InjectionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,13 +15,11 @@ import org.springframework.web.servlet.resource.VersionResourceResolver;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
-    private AuthInterceptor authInterceptor;
-    private InjectionInterceptor injectionInterceptor;
+    private final AuthInterceptor authInterceptor;
 
     @Autowired
-    public WebMvcConfig(AuthInterceptor authInterceptor, InjectionInterceptor injectionInterceptor) {
+    public WebMvcConfig(AuthInterceptor authInterceptor) {
         this.authInterceptor = authInterceptor;
-        this.injectionInterceptor = injectionInterceptor;
     }
 
     /**
@@ -33,9 +30,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加权限拦截器
         registry.addInterceptor(this.authInterceptor).addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
-
-        // 添加对象注入器
-        registry.addInterceptor(this.injectionInterceptor).addPathPatterns("").addPathPatterns("/**").addPathPatterns("/**/**").addPathPatterns("/**/**/**").addPathPatterns("/**/**/**/**");
 
         super.addInterceptors(registry);
     }

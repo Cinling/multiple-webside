@@ -54,6 +54,13 @@
                 <version>${springboot.version}</version>
             </dependency>
 
+            <!--开发工具包-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
             <!--java-common子模块-->
             <dependency>
                 <groupId>cn.cinling</groupId>
