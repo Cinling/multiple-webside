@@ -253,7 +253,28 @@
     </nav>
     <!-- sidebar-wrapper  -->
     <main class="page-content" onmouseover="HideMenu()">
+        <ul class="nav nav-tabs i-tabs-nav" id="" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-tab-id="index">
+                    <span class="nav-tab-title" onclick="OpenTab(this)">主页</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-tab-id="other|page">
+                    <span class="nav-tab-title" onclick="OpenTab(this)">其他页面</span>
+                    <span class="nav-close-btn" onclick="CloseTab(this)"><i class="fas fa-times"></i></span>
+                </a>
 
+            </li>
+        </ul>
+        <div class="i-tabs">
+            <section data-tab-id="index">
+                主页内容
+            </section>
+            <section data-tab-id="other|page" style="display: none">
+                其他页面
+            </section>
+        </div>
     </main>
     <!-- page-content" -->
 </article>
@@ -274,6 +295,9 @@
         },
 
         methods: {
+            /**
+             * 请求菜单数据
+             */
             RequestMenuData: function() {
                 $.ajax({
                     url: "[[${@urlUtil.To('/home/get-menu')}]]",
@@ -288,6 +312,9 @@
                 });
             },
 
+            /**
+             * 打开链接
+             */
             OpenUrl: function (event) {
                 let url = $(event.target).data("url");
 
@@ -334,6 +361,44 @@
                     $(thisDom).next(".sidebar-submenu").slideDown(200);
                     $(thisDom).parent().addClass("active");
                 }
+            },
+
+            /**
+             * 打开标签
+             * @param {document|event} node
+             */
+            OpenTab: function (node) {
+                let itemSelector = undefined;
+
+                if (node.hasOwnProperty("target")) {
+                    itemSelector = $(node.target).parent("a.nav-link");
+                } else {
+                    itemSelector = $(node).parent("a.nav-link");
+                }
+
+                // 切换 active 的 tab 导航
+                $(".i-tabs-nav>li>a").removeClass("active");
+                itemSelector.addClass("active")
+
+                // 显示被点击的 tab 内容
+                this.HideAllTab();
+                let tabId = itemSelector.data("tab-id");
+                $("section[data-tab-id='" + tabId + "']").show();
+            },
+
+            /**
+             * 关闭标签
+             * @param {document|event} node
+             */
+            CloseTab: function (node) {
+                console.log("CloseTab");
+            },
+
+            /**
+             * 隐藏所有 tab
+             */
+            HideAllTab: function() {
+                $(".i-tabs>section").hide();
             }
         }
     });
@@ -354,6 +419,15 @@
         setTimeout(function(){
             sidebarVue.HideMenu();
         });
+    }
+
+
+    function OpenTab(node) {
+        sidebarVue.OpenTab(node);
+    }
+
+    function CloseTab(node) {
+        sidebarVue.CloseTab(node);
     }
 </script>
 

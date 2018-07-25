@@ -12,14 +12,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 权限管理模块
+ */
 @Service
 public class AuthManager extends BaseManager {
 
+    /**
+     * 路径管理工具
+     */
     private final UrlUtil urlUtil;
+    /**
+     * 管理员表 mapper 对象
+     */
     private final AdminUserMapper adminUserMapper;
 
 
-    private Menu menu;  // 菜单对象
+    /**
+     * 菜单对象
+     */
+    private Menu menu;
 
     @Autowired
     public AuthManager(UrlUtil urlUtil, AdminUserMapper adminUserMapper) {
@@ -61,7 +73,10 @@ public class AuthManager extends BaseManager {
         // 菜单根节点
         this.menu = new Menu("root", "菜单", "")
                 .AddChild(new Menu("sys","系统", "").SetIcon(Menu.ICON_COGS)
-                        .AddChild(new Menu("sys-status", "服务器状态", this.urlUtil.To("/admin-system-monitor/home")))
+                        .AddChild(new Menu("sys-status", "服务器状态", this.urlUtil.To("admin-system-monitor/home")))
+                )
+                .AddChild(new Menu("test", "测试", "")
+                        .AddChild(new Menu("index", "首页", this.urlUtil.To("test/index-page")))
                 );
     }
 

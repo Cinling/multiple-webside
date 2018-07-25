@@ -29,4 +29,9 @@ public class TestController {
 
         return test.toString();
     }
+
+    @RequestMapping(value = "index-page")
+    public String IndexPage() {
+        return "test/index";
+    }
 }

@@ -67,3 +67,26 @@ html, body, article {
     cursor: pointer;
     color: #fff;
 }
+
+.nav-link {
+    display: inline-block;
+    user-select: none;
+}
+
+.nav-tab-title:hover {
+    cursor: pointer;
+    color: #00a9fd!important;
+}
+
+.nav-close-btn {
+    color: #c1c1c1!important;
+}
+
+.nav-close-btn:hover {
+    cursor: pointer;
+    color: red!important;
+}
+
+.i-tabs {
+    width: 100%;
+}
