@@ -378,7 +378,7 @@
 
                 // 切换 active 的 tab 导航
                 $(".i-tabs-nav>li>a").removeClass("active");
-                itemSelector.addClass("active")
+                itemSelector.addClass("active");
 
                 // 显示被点击的 tab 内容
                 this.HideAllTab();
@@ -391,7 +391,21 @@
              * @param {document|event} node
              */
             CloseTab: function (node) {
-                console.log("CloseTab");
+                let selector = undefined;
+
+                if (node.hasOwnProperty("target")) {
+                    selector = $(node.target);
+                } else {
+                    selector = $(node);
+                }
+
+                // 删除 tab 标签，以及标签对应的内容
+                let tabId = selector.parent("a.nav-link").data("tab-id");
+                $("a.nav-link[data-tab-id='" + tabId + "']").remove();
+                $(".i-tabs > section[data-tab-id='" + tabId + "']").remove();
+
+                // 跳转到首页
+                this.OpenTab($("a.nav-link[data-tab-id='index'] > span.nav-tab-title").get(0));
             },
 
             /**
@@ -421,11 +435,18 @@
         });
     }
 
-
+    /**
+     * 打开标签
+     * @param {document} node
+     */
     function OpenTab(node) {
         sidebarVue.OpenTab(node);
     }
 
+    /**
+     * 关闭标签
+     * @param {document} node
+     */
     function CloseTab(node) {
         sidebarVue.CloseTab(node);
     }
