@@ -1,3 +1,31 @@
+
+# 项目介绍
+
+## 目录说明
+```
+./js
+├── libs                                   // *自带库
+│   ├── symbol.js                          // *ES6 Symbol简易兼容
+│   └── weapp-adapter.js                   // *小游戏适配器
+|—— man                                    // 逻辑控制 (manager)
+|—— obj                                    // 游戏对象
+├── util                                   // 组件以及工具
+└── main.js                
+```
+
+
+
+
+
+
+
+
+
+
+
+
+# 官方自带
+
 ## quickstart
 
 ## 源码目录介绍
